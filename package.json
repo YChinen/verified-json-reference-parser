@@ -1,19 +1,40 @@
 {
   "name": "verified-json-reference-parser",
-  "version": "0.0.1",
+  "version": "0.0.0",
+  "description": "A practically verified core for JSON Reference resolution in JSON Schema engines.",
+  "license": "MIT",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/",
+    "README.md",
+    "README_ja.md",
+    "ROADMAP.md",
+    "ROADMAP_ja.md",
+    "ARCHITECTURE.md",
+    "ARCHITECTURE_ja.md",
+    "SEMANTICS.md",
+    "SEMANTICS_ja.md",
+    "LICENSE"
+  ],
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
+  "sideEffects": false,
   "scripts": {
+    "clean": "rm -rf dist",
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test dist/tests/*.js"
+    "test": "vitest",
+    "test:run": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {
-    "@types/node": "^25.3.3",
-    "tsx": "^4.21.0",
-    "typescript": "^5.6.0"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18",
+    "tsx": "^4.21.0"
   }
 }
