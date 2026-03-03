@@ -1,3 +1,5 @@
+[![CI](https://github.com/YChinen/verified-json-reference-parser/actions/workflows/ci.yml/badge.svg)](https://github.com/YChinen/verified-json-reference-parser/actions/workflows/ci.yml)
+
 # verified-json-reference-parser
 
 > A practically verified core for JSON Reference resolution in JSON Schema engines.

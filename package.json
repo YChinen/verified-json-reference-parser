@@ -30,7 +30,8 @@
     "build": "tsc -p tsconfig.json",
     "test": "vitest",
     "test:run": "vitest run",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "verify:z3": "node --enable-source-maps verification/z3/diff.mjs"
   },
   "devDependencies": {
     "typescript": "^5.9.3",

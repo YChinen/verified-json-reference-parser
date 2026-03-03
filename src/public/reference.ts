@@ -1,6 +1,6 @@
-import { ok, err } from "./types";
-import type { JSONValue, Result } from "./types";
-import { parsePointer, get } from "./pointer";
+import { ok, err } from "./types.js";
+import type { JSONValue, Result } from "./types.js";
+import { parsePointer, get } from "./pointer.js";
 
 /**
  * Resolve a local JSON Reference against a JSON document.

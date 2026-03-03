@@ -1,3 +1,5 @@
+[![CI](https://github.com/YChinen/verified-json-reference-parser/actions/workflows/ci.yml/badge.svg)](https://github.com/YChinen/verified-json-reference-parser/actions/workflows/ci.yml)
+
 # verified-json-reference-parser
 
 > JSON Schema エンジンのための、実用的保証付き JSON Reference コア実装

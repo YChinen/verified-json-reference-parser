@@ -1,5 +1,5 @@
-import { ok, err } from "../public/types";
-import type { Result } from "../public/types";
+import { ok, err } from "../public/types.js";
+import type { Result } from "../public/types.js";
 
 /**
  * Escape a JSON Pointer token (RFC 6901).

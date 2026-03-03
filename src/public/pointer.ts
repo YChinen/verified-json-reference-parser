@@ -1,7 +1,7 @@
-import { ok, err } from "./types";
-import type { Result, JSONValue, Pointer } from "./types";
-import { escapeToken, unescapeToken } from "../internal/token";
-import { parseArrayIndexToken } from "../internal/arrayIndex";
+import { ok, err } from "./types.js";
+import type { Result, JSONValue, Pointer } from "./types.js";
+import { escapeToken, unescapeToken } from "../internal/token.js";
+import { parseArrayIndexToken } from "../internal/arrayIndex.js";
 
 /**
  * Parse a JSON Pointer string (RFC 6901) into a token array.

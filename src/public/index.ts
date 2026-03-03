@@ -4,10 +4,10 @@ export type {
   Pointer,
   Result,
   ErrorKind,
-} from "./types";
+} from "./types.js";
 
-export { ok, err, isOk, isErr } from "./types";
+export { ok, err, isOk, isErr } from "./types.js";
 
-export { parsePointer, formatPointer, get } from "./pointer";
+export { parsePointer, formatPointer, get } from "./pointer.js";
 
-export { resolveLocalRef } from "./reference";
+export { resolveLocalRef } from "./reference.js";
