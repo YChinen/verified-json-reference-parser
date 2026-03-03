@@ -71,6 +71,20 @@ DOCS += [
     {"a": {"": {"x": [7, 8]}}},
 ]
 
+# --- nasty/edge-case boosters (object<->array alternation, empty keys, numeric-like keys) ---
+DOCS += [
+    {"a": [{"b": [0, 1]}, {"b": [2]}]},
+    {"a": {"b": [{"c": 0}, {"c": 1}]}},
+    {"": {"": [{"": 1}] }},
+    [{"": {"a": [1]}}, {"": {"a": [2]}}],
+    {"a": [[], [0], [0, 1]]},
+    {"a": {"b": {"c": {"d": 1}}}},
+    {"a": [{"b": {}}, {"b": {"c": 1}}]},
+    {"a": {"0": [1, 2]}},
+    {"a": {"01": [1]}},
+    {"a": [{"01": 1}]},
+]
+
 TOKENS_LIST: List[List[str]] = [
     [],                 # whole doc
     [""],               # empty-key
@@ -101,6 +115,21 @@ TOKENS_LIST += [
     ["", "x", "y"],
     ["a", "", "x"],
     ["a", "b", "c", "1"],
+]
+
+# --- nasty token boosters (leading zeros, empty tokens, deeper paths) ---
+TOKENS_LIST += [
+    ["a", "0", "b", "0"],
+    ["a", "0", "b", "01"],
+    ["a", "0", "b", ""],
+    ["a", "b", "c", "0"],
+    ["a", "b", "c", "01"],
+    ["", ""],
+    ["", "0"],
+    ["a", "00"],
+    ["a", "000"],
+    ["-0"],
+    ["a", "-1"],
 ]
 
 def to_case(doc_idx: int, tok_idx: int) -> Dict[str, Any]:

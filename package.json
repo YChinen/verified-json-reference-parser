@@ -31,11 +31,12 @@
     "test": "vitest",
     "test:run": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "verify:z3": "node --enable-source-maps verification/z3/diff.mjs"
+    "verify:z3": "npm run build && node --enable-source-maps verification/z3/diff.mjs"
   },
   "devDependencies": {
+    "fast-check": "^4.5.3",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.18",
-    "tsx": "^4.21.0"
+    "vitest": "^4.0.18"
   }
 }
