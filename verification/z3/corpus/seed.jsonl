@@ -1,0 +1,10 @@
+{"doc":{"a":{"b":2}},"tokens":["a","b"]}
+{"doc":{"":123},"tokens":[""]}
+{"doc":["x","y"],"tokens":["1"]}
+{"doc":["x"],"tokens":["01"]}
+{"doc":{"a":1},"tokens":["a","b"]}
+{"doc":{"a":["x","y"]},"tokens":["a","1"]}
+{"doc":{"a":1},"tokens":["a","0"]}
+{"doc":null,"tokens":["a"]}
+{"doc":{"a":{"":9}},"tokens":["a",""]}
+{"doc":{"a":{"b":[10,20]}},"tokens":["a","b","1"]}

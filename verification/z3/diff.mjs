@@ -16,9 +16,16 @@ import { get } from "../../dist/index.js";
  *     - {"ok":false,"kind":"InvalidPointer"|"TypeMismatch"|"NotFound"}
  */
 
-const CASES_PATH = "verification/z3/corpus/cases.jsonl";
+const CASES_PATHS = [
+    "verification/z3/corpus/seed.jsonl",
+    "verification/z3/corpus/generated.jsonl",
+    "verification/z3/corpus/regression.jsonl",
+];
 const FAIL_PATH = "verification/z3/corpus/failures.jsonl";
 const ORACLE_CMD = ["python", "verification/z3/oracle.py"];
+
+const seen = new Set();
+function keyOf(c) { return JSON.stringify(c); } // doc/tokens限定なら十分
 
 function stableStringify(x) {
     // For now, JSON.stringify is sufficient because our corpus should be stable.
@@ -62,65 +69,167 @@ function callOracle(caseObj) {
     }
 }
 
-async function main() {
-    if (!fs.existsSync(CASES_PATH)) {
-        console.error(`Missing corpus: ${CASES_PATH}`);
-        process.exit(2);
-    }
+const REGRESSION_PATH = "verification/z3/corpus/regression.jsonl";
 
-    const rl = readline.createInterface({
-        input: fs.createReadStream(CASES_PATH, { encoding: "utf8" }),
-        crlfDelay: Infinity,
-    });
+// CLI flags
+const PROMOTE = process.argv.includes("--promote");
+const CLEAR_FAILURES = process.argv.includes("--clear-failures");
+
+function ensureDirForFile(path) {
+    const dir = path.split("/").slice(0, -1).join("/");
+    if (dir) fs.mkdirSync(dir, { recursive: true });
+}
+
+function keyOfCase(c) {
+    // stable-enough for our constrained corpus
+    return JSON.stringify(c);
+}
+
+function loadCaseKeysFromJsonl(path) {
+    const keys = new Set();
+    if (!fs.existsSync(path)) return keys;
+    const text = fs.readFileSync(path, "utf8");
+    for (const line of text.split("\n")) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+        try {
+            const c = JSON.parse(trimmed);
+            if (c && typeof c === "object" && "doc" in c && "tokens" in c) {
+                keys.add(keyOfCase(c));
+            }
+        } catch {
+            // ignore
+        }
+    }
+    return keys;
+}
+
+async function main() {
+    for (const p of CASES_PATHS) {
+        if (!fs.existsSync(p)) {
+            console.error(`Missing corpus: ${p}`);
+            process.exit(2);
+        }
+    }
 
     let total = 0;
     let mismatches = 0;
 
+    const seen = new Set();
+
     const failStream = fs.createWriteStream(FAIL_PATH, { flags: "a" });
 
-    for await (const line of rl) {
-        const trimmed = line.trim();
-        if (!trimmed) continue;
+    for (const path of CASES_PATHS) {
+        const rl = readline.createInterface({
+            input: fs.createReadStream(path, { encoding: "utf8" }),
+            crlfDelay: Infinity,
+        });
 
-        total++;
-        let caseObj;
-        try {
-            caseObj = JSON.parse(trimmed);
-        } catch {
-            mismatches++;
-            failStream.write(
-                stableStringify({
-                    case: { raw: trimmed },
-                    impl: { ok: false, kind: "InvalidPointer" },
-                    oracle: { ok: false, kind: "InvalidPointer" },
-                    note: "invalid input json",
-                }) + "\n"
-            );
-            continue;
-        }
+        for await (const line of rl) {
+            const trimmed = line.trim();
+            if (!trimmed) continue;
 
-        const impl = get(caseObj.doc, caseObj.tokens);
-        const oracle = callOracle(caseObj);
+            let caseObj;
+            try {
+                caseObj = JSON.parse(trimmed);
+            } catch {
+                mismatches++;
+                failStream.write(
+                    stableStringify({
+                        case: { raw: trimmed },
+                        impl: { ok: false, kind: "InvalidPointer" },
+                        oracle: { ok: false, kind: "InvalidPointer" },
+                        note: "invalid input json",
+                        source: path,
+                    }) + "\n"
+                );
+                continue;
+            }
 
-        if (!deepEqualResult(impl, oracle)) {
-            mismatches++;
-            failStream.write(
-                stableStringify({
-                    case: caseObj,
-                    impl,
-                    oracle,
-                }) + "\n"
-            );
+            const k = keyOf(caseObj);
+            if (seen.has(k)) continue;
+            seen.add(k);
+
+            total++;
+
+            const impl = get(caseObj.doc, caseObj.tokens);
+            const oracle = callOracle(caseObj);
+
+            if (!deepEqualResult(impl, oracle)) {
+                mismatches++;
+                failStream.write(
+                    stableStringify({
+                        case: caseObj,
+                        impl,
+                        oracle,
+                        source: path,
+                    }) + "\n"
+                );
+            }
         }
     }
 
     failStream.end();
 
-    console.log(`cases: ${total}`);
+    // Optional: promote mismatches to regression corpus (local use)
+    if (PROMOTE) {
+        ensureDirForFile(REGRESSION_PATH);
+
+        const existing = loadCaseKeysFromJsonl(REGRESSION_PATH);
+        let promoted = 0;
+        let skipped = 0;
+
+        // Read back failures we just wrote (append mode). We promote only cases with mismatches.
+        if (fs.existsSync(FAIL_PATH)) {
+            const text = fs.readFileSync(FAIL_PATH, "utf8");
+            const out = fs.createWriteStream(REGRESSION_PATH, { flags: "a" });
+
+            for (const line of text.split("\n")) {
+                const trimmed = line.trim();
+                if (!trimmed) continue;
+
+                let obj;
+                try {
+                    obj = JSON.parse(trimmed);
+                } catch {
+                    skipped++;
+                    continue;
+                }
+
+                const c = obj?.case;
+                if (!c || typeof c !== "object" || !("doc" in c) || !("tokens" in c)) {
+                    skipped++;
+                    continue;
+                }
+
+                const k = keyOfCase(c);
+                if (existing.has(k)) {
+                    skipped++;
+                    continue;
+                }
+
+                out.write(JSON.stringify(c) + "\n");
+                existing.add(k);
+                promoted++;
+            }
+
+            out.end();
+        }
+
+        console.log(`promoted to regression: ${promoted} (skipped: ${skipped}) -> ${REGRESSION_PATH}`);
+
+        if (CLEAR_FAILURES) {
+            fs.writeFileSync(FAIL_PATH, "");
+            console.log(`cleared failures: ${FAIL_PATH}`);
+        }
+    } else if (mismatches > 0) {
+        console.log(`Tip: run with --promote to append mismatches into ${REGRESSION_PATH}`);
+    }
+
+    console.log(`unique cases: ${total}`);
     console.log(`mismatches: ${mismatches}`);
     console.log(`failures written to: ${FAIL_PATH}`);
 
-    // Non-zero exit on mismatch (useful for a dedicated workflow)
     process.exit(mismatches === 0 ? 0 : 1);
 }
 

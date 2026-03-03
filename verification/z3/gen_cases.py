@@ -1,4 +1,3 @@
-# verification/z3/gen_cases.py
 import json
 import random
 
