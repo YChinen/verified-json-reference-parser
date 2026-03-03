@@ -112,13 +112,13 @@ Once the semantic core is formally fixed:
 
 ```mermaid
 flowchart LR
-  A[JSON Document] --> C[get(doc, pointer)]
+  A[JSON Document] --> C["get(doc, pointer)"]
   B[JSON Pointer String] --> D[parsePointer]
-  D --> E[Pointer (Token Array)]
+  D --> E["Pointer (Token Array)"]
   E --> C
   C --> F[Value / NotFound / Error]
 
-  R[$ref String (#, #/...)] --> S[resolveLocalRef]
+  R["$ref String (#, #/...)"] --> S[resolveLocalRef]
   A --> S
   S --> F
 ```
@@ -129,7 +129,7 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-  A[Specification Model / Constraints (Z3)] --> B[Counterexample Generation]
+  A["Specification Model / Constraints (Z3)"] --> B[Counterexample Generation]
   B --> C[Minimization]
   C --> D[Regression Corpus Update]
   D --> E[CI Execution]
