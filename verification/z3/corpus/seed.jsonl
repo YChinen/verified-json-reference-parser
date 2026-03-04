@@ -8,3 +8,9 @@
 {"doc":null,"tokens":["a"]}
 {"doc":{"a":{"":9}},"tokens":["a",""]}
 {"doc":{"a":{"b":[10,20]}},"tokens":["a","b","1"]}
+{"op":"resolveLocalRef","doc":{"a":1},"ref":"#"}
+{"op":"resolveLocalRef","doc":{"a":{"b":2}},"ref":"#/a/b"}
+{"op":"resolveLocalRef","doc":{"a":["x","y"]},"ref":"#/a/1"}
+{"op":"resolveLocalRef","doc":{"a":{"~":1,"/":2}},"ref":"#/a/~0"}
+{"op":"resolveLocalRef","doc":{"a":{"~":1,"/":2}},"ref":"#/a/~1"}
+{"op":"resolveLocalRef","doc":{"a":1},"ref":"#foo"}

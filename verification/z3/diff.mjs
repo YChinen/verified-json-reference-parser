@@ -1,13 +1,17 @@
 import fs from "node:fs";
 import readline from "node:readline";
 import { spawnSync } from "node:child_process";
-import { get } from "../../dist/index.js";
+import { get, resolveLocalRef } from "../../dist/index.js";
 
 /**
  * Compare TS implementation vs Python oracle on a corpus of cases.
  *
- * Input: JSONL lines like:
- *   {"doc": <JSONValue>, "ref": "#/a/0"}
+ * Input: JSONL lines like either:
+ *   {"op":"get","doc": <JSONValue>, "tokens": ["a","0"]}
+ *   {"op":"resolveLocalRef","doc": <JSONValue>, "ref": "#/a/0"}
+ *
+ * Backward compatibility:
+ *   {"doc": <JSONValue>, "tokens": ["a","0"]} is treated as "get".
  *
  * Oracle protocol:
  *   stdin:  one JSON line (same as case)
@@ -24,7 +28,6 @@ const CASES_PATHS = [
 const FAIL_PATH = "verification/z3/corpus/failures.jsonl";
 const ORACLE_CMD = ["python", "verification/z3/oracle.py"];
 
-const seen = new Set();
 function keyOf(c) { return JSON.stringify(c); } // doc/tokens限定なら十分
 
 function stableStringify(x) {
@@ -37,6 +40,47 @@ function deepEqualResult(a, b) {
     // Compare Result objects by JSON stringification.
     // Works as long as we keep ordering stable (for objects in values, corpus should be stable).
     return stableStringify(a) === stableStringify(b);
+}
+
+function inferOp(caseObj) {
+    if (!caseObj || typeof caseObj !== "object") return null;
+    if (caseObj.op === "get" || caseObj.op === "resolveLocalRef") return caseObj.op;
+    if ("tokens" in caseObj) return "get";
+    if ("ref" in caseObj) return "resolveLocalRef";
+    return null;
+}
+
+function isStringArray(x) {
+    return Array.isArray(x) && x.every((t) => typeof t === "string");
+}
+
+function isSupportedCase(caseObj) {
+    if (!caseObj || typeof caseObj !== "object" || !("doc" in caseObj)) return false;
+
+    const op = inferOp(caseObj);
+    if (op === "get") return isStringArray(caseObj.tokens);
+    if (op === "resolveLocalRef") return typeof caseObj.ref === "string";
+    return false;
+}
+
+function evalImplCase(caseObj) {
+    if (!caseObj || typeof caseObj !== "object" || !("doc" in caseObj)) {
+        return { ok: false, kind: "InvalidPointer" };
+    }
+
+    const op = inferOp(caseObj);
+
+    if (op === "get") {
+        if (!isStringArray(caseObj.tokens)) return { ok: false, kind: "InvalidPointer" };
+        return get(caseObj.doc, caseObj.tokens);
+    }
+
+    if (op === "resolveLocalRef") {
+        if (typeof caseObj.ref !== "string") return { ok: false, kind: "InvalidPointer" };
+        return resolveLocalRef(caseObj.doc, caseObj.ref);
+    }
+
+    return { ok: false, kind: "InvalidPointer" };
 }
 
 function callOracle(caseObj) {
@@ -94,7 +138,7 @@ function loadCaseKeysFromJsonl(path) {
         if (!trimmed) continue;
         try {
             const c = JSON.parse(trimmed);
-            if (c && typeof c === "object" && "doc" in c && "tokens" in c) {
+            if (isSupportedCase(c)) {
                 keys.add(keyOfCase(c));
             }
         } catch {
@@ -117,6 +161,7 @@ async function main() {
 
     const seen = new Set();
 
+    fs.writeFileSync(FAIL_PATH, "");
     const failStream = fs.createWriteStream(FAIL_PATH, { flags: "a" });
 
     for (const path of CASES_PATHS) {
@@ -152,7 +197,7 @@ async function main() {
 
             total++;
 
-            const impl = get(caseObj.doc, caseObj.tokens);
+            const impl = evalImplCase(caseObj);
             const oracle = callOracle(caseObj);
 
             if (!deepEqualResult(impl, oracle)) {
@@ -197,7 +242,7 @@ async function main() {
                 }
 
                 const c = obj?.case;
-                if (!c || typeof c !== "object" || !("doc" in c) || !("tokens" in c)) {
+                if (!isSupportedCase(c)) {
                     skipped++;
                     continue;
                 }

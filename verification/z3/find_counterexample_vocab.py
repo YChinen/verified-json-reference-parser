@@ -1,77 +1,22 @@
 import json
+import random
 import subprocess
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List
 
 from z3 import Int, Optimize, If, sat
 
+from pools import DOCS, RAW_INVALID_REFS
+from spec import eval_case, format_pointer, kind_of_result
+
 JSONValue = Any
 
-# -----------------------------
-# Pools
-# -----------------------------
-DOCS: List[JSONValue] = [
-    None, True, False, 0, 1, "", "a",
-    [], [0], [1, 2], ["x", "y"],
-    {}, {"a": 1}, {"": 123}, {"a": {"b": 2}}, {"a": ["x", "y"]}, {"a": {"": 9}},
-    {"a": []}, {"a": [0]}, {"a": {"b": [1, 2]}},
+VOCAB: List[str] = ["", "a", "b", "c", "0", "1", "01", "00", "foo", "-1", "-0", "~", "/", "b/c", "d~e"]
+MAX_LEN = 6
 
-    # boosters
-    {"a": {"b": [10, 20]}},
-    {"a": [{"b": 1}, {"b": 2}]},
-    {"": {"x": {"y": 3}}},
-    [{"a": 1}, {"a": 2}],
-    {"a": {"b": {"c": [0, 1]}}},
-    {"a": {"": {"x": [7, 8]}}},
-    {"a": [{"b": [0, 1]}, {"b": [2]}]},
-    {"a": {"b": [{"c": 0}, {"c": 1}]}},
-    {"": {"": [{"": 1}] }},
-    [{"": {"a": [1]}}, {"": {"a": [2]}}],
-    {"a": [[], [0], [0, 1]]},
-    {"a": {"b": {"c": {"d": 1}}}},
-    {"a": [{"b": {}}, {"b": {"c": 1}}]},
-    {"a": {"0": [1, 2]}},
-    {"a": {"01": [1]}},
-    {"a": [{"01": 1}]},
-]
+KIND_TO_INT = {"Ok": 0, "NotFound": 1, "TypeMismatch": 2, "InvalidPointer": 3}
+INT_TO_KIND = {v: k for k, v in KIND_TO_INT.items()}
 
-# token vocabulary (unescaped tokens)
-VOCAB: List[str] = ["", "a", "b", "c", "0", "1", "01", "00", "foo", "-1", "-0"]
 
-MAX_LEN = 6  # token length upper bound
-
-# -----------------------------
-# Spec semantics (kind only)
-# -----------------------------
-def spec_parse_array_index_token(token: str):
-    if token == "":
-        return None
-    if not token.isdigit():
-        return None
-    if len(token) > 1 and token[0] == "0":
-        return None
-    return int(token, 10)
-
-def spec_kind(doc: JSONValue, tokens: List[str]) -> str:
-    cur = doc
-    for tok in tokens:
-        if isinstance(cur, list):
-            idx = spec_parse_array_index_token(tok)
-            if idx is None:
-                return "TypeMismatch"
-            if idx < 0 or idx >= len(cur):
-                return "NotFound"
-            cur = cur[idx]
-        elif isinstance(cur, dict):
-            if tok not in cur:
-                return "NotFound"
-            cur = cur[tok]
-        else:
-            return "TypeMismatch"
-    return "Ok"
-
-# -----------------------------
-# Impl kinds via Node batch (TS dist)
-# -----------------------------
 def impl_kinds_batch(cases: List[Dict[str, Any]]) -> List[str]:
     inp = "".join(json.dumps(c, ensure_ascii=False) + "\n" for c in cases).encode("utf-8")
     p = subprocess.run(
@@ -97,28 +42,6 @@ def impl_kinds_batch(cases: List[Dict[str, Any]]) -> List[str]:
         raise RuntimeError(f"unexpected output lines: got {len(kinds)} expected {len(cases)}")
     return kinds
 
-# -----------------------------
-# Enumerate tokens via vocab indices
-# -----------------------------
-def decode_tokens(L: int, idxs: List[int]) -> List[str]:
-    return [VOCAB[idxs[i]] for i in range(L)]
-
-def token_len_cost(L: int) -> int:
-    return L
-
-def token_lex_cost(L: int, idxs: List[int]) -> int:
-    # a small lexicographic cost to bias toward smaller indices after length minimization
-    base = len(VOCAB)
-    cost = 0
-    for i in range(L):
-        cost = cost * base + idxs[i]
-    return cost
-
-# -----------------------------
-# Z3 helper: piecewise select a table entry by (d, L, v0..v5)
-# -----------------------------
-KIND_TO_INT = {"Ok": 0, "NotFound": 1, "TypeMismatch": 2, "InvalidPointer": 3}
-INT_TO_KIND = {v: k for k, v in KIND_TO_INT.items()}
 
 def doc_size(doc: JSONValue) -> int:
     if doc is None or isinstance(doc, (bool, int, float, str)):
@@ -129,139 +52,136 @@ def doc_size(doc: JSONValue) -> int:
         return 1 + sum(doc_size(v) for v in doc.values())
     return 1
 
-def main():
-    # Build evaluation table for all combinations:
-    # doc_idx in [0..|DOCS|-1]
-    # L in [0..MAX_LEN]
-    # v0..v5 in [0..|VOCAB|-1]
-    #
-    # NOTE: total combos = |DOCS| * sum_{L=0..MAX_LEN} |VOCAB|^L
-    # With MAX_LEN=6 and |VOCAB|=11, this is large.
-    # So we will cap enumeration by sampling v-tuples per L (still Z3-minimizable).
-    #
-    # Practical strategy:
-    # - fully enumerate L=0..3
-    # - sample for L=4..6
-    FULL_ENUM_UP_TO = 3
-    SAMPLES_PER_L = 2000
 
-    tables: List[Tuple[int,int,Tuple[int,...],str,str]] = []
-    cases_for_impl: List[Dict[str, Any]] = []
+def decode_tokens(length: int, idxs: List[int]) -> List[str]:
+    return [VOCAB[idxs[i]] for i in range(length)]
 
-    import random
+
+def lex_cost(tokens: List[str]) -> int:
+    base = len(VOCAB)
+    idx_map = {token: idx for idx, token in enumerate(VOCAB)}
+    cost = 0
+    for token in tokens:
+        cost = cost * base + idx_map[token]
+    return cost
+
+
+def path_cost(case: Dict[str, Any]) -> int:
+    if case.get("op") == "resolveLocalRef":
+        return len(case["ref"])
+    return len(case["tokens"])
+
+
+def op_cost(case: Dict[str, Any]) -> int:
+    return 1 if case.get("op") == "resolveLocalRef" else 0
+
+
+def case_lex_cost(case: Dict[str, Any]) -> int:
+    if case.get("op") == "get":
+        return lex_cost(case["tokens"])
+
+    ref = case["ref"]
+    if ref == "#":
+        return 0
+    if ref.startswith("#/"):
+        pointer = ref[1:]
+        tokens = pointer.split("/")[1:]
+        decoded: List[str] = []
+        for token in tokens:
+            decoded.append(token.replace("~1", "/").replace("~0", "~"))
+        if all(tok in VOCAB for tok in decoded):
+            return lex_cost(decoded)
+    return len(VOCAB) ** MAX_LEN + len(ref)
+
+
+def build_cases() -> List[Dict[str, Any]]:
+    full_enum_up_to = 3
+    samples_per_len = 2000
+
+    cases: List[Dict[str, Any]] = []
+    seen: set[str] = set()
     random.seed(0)
 
-    for di, doc in enumerate(DOCS):
-        for L in range(0, MAX_LEN + 1):
-            if L <= FULL_ENUM_UP_TO:
-                # full enumeration for this L
-                total = len(VOCAB) ** L
+    def add_case(case: Dict[str, Any]) -> None:
+        key = json.dumps(case, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        if key in seen:
+            return
+        seen.add(key)
+        cases.append(case)
+
+    for doc in DOCS:
+        for length in range(0, MAX_LEN + 1):
+            token_vectors: List[List[int]] = []
+            if length <= full_enum_up_to:
+                total = len(VOCAB) ** length
                 for n in range(total):
                     idxs = []
                     x = n
-                    for _ in range(L):
+                    for _ in range(length):
                         idxs.append(x % len(VOCAB))
                         x //= len(VOCAB)
-                    idxs_t = tuple(idxs)
-                    toks = decode_tokens(L, idxs)
-                    sk = spec_kind(doc, toks)
-                    tables.append((di, L, idxs_t, sk, ""))  # impl to fill later
-                    cases_for_impl.append({"doc": doc, "tokens": toks})
+                    token_vectors.append(idxs)
             else:
-                # sample
-                for _ in range(SAMPLES_PER_L):
-                    idxs = tuple(random.randrange(0, len(VOCAB)) for _ in range(L))
-                    toks = decode_tokens(L, list(idxs))
-                    sk = spec_kind(doc, toks)
-                    tables.append((di, L, idxs, sk, ""))
-                    cases_for_impl.append({"doc": doc, "tokens": toks})
+                for _ in range(samples_per_len):
+                    token_vectors.append([random.randrange(0, len(VOCAB)) for _ in range(length)])
 
-    # Batch compute impl kinds for all cases
-    implKinds = impl_kinds_batch(cases_for_impl)
+            for idxs in token_vectors:
+                tokens = decode_tokens(length, idxs)
+                add_case({"op": "get", "doc": doc, "tokens": tokens})
+                add_case({"op": "resolveLocalRef", "doc": doc, "ref": "#" + format_pointer(tokens)})
 
-    # Fill impl kinds into table
-    filled: List[Tuple[int,int,Tuple[int,...],int,int]] = []
-    for i, (di, L, idxs, sk, _) in enumerate(tables):
-        ik = implKinds[i]
-        filled.append((di, L, idxs, KIND_TO_INT.get(ik, 3), KIND_TO_INT[sk]))
+        for ref in RAW_INVALID_REFS:
+            add_case({"op": "resolveLocalRef", "doc": doc, "ref": ref})
 
-    # Z3 vars
-    d = Int("d")
-    Lz = Int("L")
-    vs = [Int(f"v{i}") for i in range(MAX_LEN)]  # v0..v5
+    return cases
 
-    opt = Optimize()
-    opt.add(d >= 0, d < len(DOCS))
-    opt.add(Lz >= 0, Lz <= MAX_LEN)
-    for v in vs:
-        opt.add(v >= 0, v < len(VOCAB))
 
-    # piecewise table select
-    implExpr = None
-    specExpr = None
+def piecewise_cost(case_var: Int, values: List[int]):
+    expr = None
+    for idx, value in enumerate(values):
+        expr = If(case_var == idx, value, expr) if expr is not None else If(case_var == idx, value, value)
+    return expr
 
-    def cond_for(di: int, L: int, idxs: Tuple[int,...]):
-        c = (d == di) & (Lz == L)
-        for i in range(L):
-            c = c & (vs[i] == idxs[i])
-        # For i >= L, don't care
-        return c
 
-    for (di, L, idxs, implK, specK) in filled:
-        c = cond_for(di, L, idxs)
-        if implExpr is None:
-            implExpr = If(c, implK, implK)
-            specExpr = If(c, specK, specK)
-        else:
-            implExpr = If(c, implK, implExpr)
-            specExpr = If(c, specK, specExpr)
+def main():
+    all_cases = build_cases()
+    impl_kinds = impl_kinds_batch(all_cases)
+    spec_kinds = [kind_of_result(eval_case(case)) for case in all_cases]
+    mismatch_indices = [idx for idx, (impl, spec) in enumerate(zip(impl_kinds, spec_kinds)) if impl != spec]
 
-    # mismatch constraint
-    opt.add(implExpr != specExpr)
-
-    # minimize: token length, then doc size, then lex of tokens (by indices)
-    docSizes = [doc_size(x) for x in DOCS]
-    docSizeExpr = None
-    for di, S in enumerate(docSizes):
-        docSizeExpr = If(d == di, S, docSizeExpr) if docSizeExpr is not None else If(d == di, S, S)
-
-    # lex cost (only meaningful up to L)
-    base = len(VOCAB)
-    lexExpr = 0
-    for i in range(MAX_LEN):
-        lexExpr = If(Lz > i, lexExpr * base + vs[i], lexExpr)
-
-    opt.minimize(Lz)
-    opt.minimize(docSizeExpr)
-    opt.minimize(lexExpr)
-
-    r = opt.check()
-    if r != sat:
+    if not mismatch_indices:
         print("UNSAT: no counterexample in current (doc pool x vocab sampling) space.")
         return
 
-    m = opt.model()
-    di = m[d].as_long()
-    L = m[Lz].as_long()
-    idxs = [m[vs[i]].as_long() for i in range(L)]
-    toks = decode_tokens(L, idxs)
+    mismatch_cases = [all_cases[idx] for idx in mismatch_indices]
+    mismatch_impl_kinds = [impl_kinds[idx] for idx in mismatch_indices]
+    mismatch_spec_kinds = [spec_kinds[idx] for idx in mismatch_indices]
 
-    # Evaluate true kinds for display (ground)
-    implK = None
-    specK = None
+    case_var = Int("mismatch_idx")
 
-    # Find matching row in filled table (exact match)
-    for (rdi, rL, ridxs, iK, sK) in filled:
-        if rdi == di and rL == L and tuple(idxs) == ridxs:
-            implK = INT_TO_KIND[iK]
-            specK = INT_TO_KIND[sK]
-            break
+    opt = Optimize()
+    opt.add(case_var >= 0, case_var < len(mismatch_cases))
+    opt.minimize(piecewise_cost(case_var, [path_cost(case) for case in mismatch_cases]))
+    opt.minimize(piecewise_cost(case_var, [doc_size(case["doc"]) for case in mismatch_cases]))
+    opt.minimize(piecewise_cost(case_var, [op_cost(case) for case in mismatch_cases]))
+    opt.minimize(piecewise_cost(case_var, [case_lex_cost(case) for case in mismatch_cases]))
 
-    case = {"doc": DOCS[di], "tokens": toks}
+    result = opt.check()
+    if result != sat:
+        raise RuntimeError("expected SAT once mismatches are prefiltered")
+
+    model = opt.model()
+    idx = model[case_var].as_long()
+    case = mismatch_cases[idx]
+    impl_kind = mismatch_impl_kinds[idx]
+    spec_kind = mismatch_spec_kinds[idx]
+
     print("SAT: found counterexample")
-    print("doc_idx:", di, "L:", L, "idxs:", idxs)
-    print("implKind:", implK, "specKind:", specK)
+    print("case_idx:", idx)
+    print("op:", case.get("op"))
+    print("implKind:", impl_kind, "specKind:", spec_kind)
     print("case:", json.dumps(case, ensure_ascii=False))
+
 
 if __name__ == "__main__":
     main()

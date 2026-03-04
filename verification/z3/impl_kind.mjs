@@ -1,7 +1,15 @@
 import readline from "node:readline";
-import { get } from "../../dist/index.js";
+import { get, resolveLocalRef } from "../../dist/index.js";
 
 const rl = readline.createInterface({ input: process.stdin, crlfDelay: Infinity });
+
+function inferOp(obj) {
+  if (!obj || typeof obj !== "object") return null;
+  if (obj.op === "get" || obj.op === "resolveLocalRef") return obj.op;
+  if ("tokens" in obj) return "get";
+  if ("ref" in obj) return "resolveLocalRef";
+  return null;
+}
 
 for await (const line of rl) {
   const trimmed = line.trim();
@@ -16,14 +24,27 @@ for await (const line of rl) {
   }
 
   const doc = obj.doc;
-  const tokens = obj.tokens;
+  const op = inferOp(obj);
+  let r;
 
-  if (!Array.isArray(tokens) || !tokens.every((t) => typeof t === "string")) {
+  if (op === "get") {
+    const tokens = obj.tokens;
+    if (!Array.isArray(tokens) || !tokens.every((t) => typeof t === "string")) {
+      process.stdout.write(JSON.stringify({ kind: "InvalidPointer" }) + "\n");
+      continue;
+    }
+    r = get(doc, tokens);
+  } else if (op === "resolveLocalRef") {
+    const ref = obj.ref;
+    if (typeof ref !== "string") {
+      process.stdout.write(JSON.stringify({ kind: "InvalidPointer" }) + "\n");
+      continue;
+    }
+    r = resolveLocalRef(doc, ref);
+  } else {
     process.stdout.write(JSON.stringify({ kind: "InvalidPointer" }) + "\n");
     continue;
   }
-
-  const r = get(doc, tokens);
 
   const kind = r.ok ? "Ok" : r.kind;
   process.stdout.write(JSON.stringify({ kind }) + "\n");

@@ -1,348 +1,500 @@
-{"doc": null, "tokens": []}
-{"doc": true, "tokens": [""]}
-{"doc": null, "tokens": ["a"]}
-{"doc": null, "tokens": [""]}
-{"doc": false, "tokens": [""]}
-{"doc": 0, "tokens": [""]}
-{"doc": 1, "tokens": [""]}
-{"doc": "", "tokens": [""]}
-{"doc": "a", "tokens": [""]}
-{"doc": [], "tokens": [""]}
-{"doc": [0], "tokens": [""]}
-{"doc": [1, 2], "tokens": [""]}
-{"doc": ["x", "y"], "tokens": [""]}
-{"doc": {}, "tokens": [""]}
-{"doc": {"a": 1}, "tokens": [""]}
-{"doc": {"": 123}, "tokens": [""]}
-{"doc": {"a": 1}, "tokens": ["b"]}
-{"doc": {"a": 1}, "tokens": ["a"]}
-{"doc": {"a": 1}, "tokens": ["missing"]}
-{"doc": {"a": 1}, "tokens": ["a", "b"]}
-{"doc": {"a": 1}, "tokens": ["a", ""]}
-{"doc": {"a": 1}, "tokens": ["a", "missing"]}
-{"doc": {"a": 1}, "tokens": ["a", "0"]}
-{"doc": {"a": 1}, "tokens": ["a", "1"]}
-{"doc": {"a": 1}, "tokens": ["0"]}
-{"doc": {"a": 1}, "tokens": ["1"]}
-{"doc": {"a": 1}, "tokens": ["01"]}
-{"doc": {"a": 1}, "tokens": ["foo"]}
-{"doc": {"a": 1}, "tokens": ["a", "01"]}
-{"doc": {"a": 1}, "tokens": ["a", "foo"]}
-{"doc": {"a": 1}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": 1}, "tokens": ["a", "1", "0"]}
-{"doc": {"a": 1}, "tokens": ["a", "b", "0"]}
-{"doc": {"a": 1}, "tokens": ["a", "b", "1"]}
-{"doc": {"a": 1}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": 1}, "tokens": ["a", "1", "b"]}
-{"doc": {"a": 1}, "tokens": ["", "x"]}
-{"doc": {"a": 1}, "tokens": ["", "x", "y"]}
-{"doc": {"a": 1}, "tokens": ["a", "", "x"]}
-{"doc": {"a": 1}, "tokens": ["a", "b", "c", "1"]}
-{"doc": {"": 123}, "tokens": ["a", "", "x"]}
-{"doc": {"": 123}, "tokens": ["", "x", "y"]}
-{"doc": {"a": {"b": 2}}, "tokens": ["a", "", "x"]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a", "", "x"]}
-{"doc": {"a": {"": 9}}, "tokens": ["a", "", "x"]}
-{"doc": {"a": []}, "tokens": ["a", "", "x"]}
-{"doc": {"a": [0]}, "tokens": ["a", "", "x"]}
-{"doc": {"a": {"b": [1, 2]}}, "tokens": ["a", "", "x"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "", "x"]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "", "x"]}
-{"doc": {"": {"x": {"y": 3}}}, "tokens": ["a", "", "x"]}
-{"doc": [{"a": 1}, {"a": 2}], "tokens": ["a", "", "x"]}
-{"doc": {"a": {"b": {"c": [0, 1]}}}, "tokens": ["a", "", "x"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", "", "x"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["", "x", "y"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["", "x"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", "1", "b"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", "b", "1"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", "b", "0"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["1"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["0"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", "1"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", "0"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", "missing"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", ""]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", "b"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["missing"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["b"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": []}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": [""]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["foo"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", "01"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", "foo"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", "1", "0"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["01"]}
-{"doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", "b", "c", "1"]}
-{"doc": {"a": {"b": {"c": [0, 1]}}}, "tokens": ["a", "b", "c", "1"]}
-{"doc": [{"a": 1}, {"a": 2}], "tokens": ["a", "b", "c", "1"]}
-{"doc": {"": {"x": {"y": 3}}}, "tokens": ["a", "b", "c", "1"]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "b", "c", "1"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "b", "c", "1"]}
-{"doc": {"a": {"b": [1, 2]}}, "tokens": ["a", "b", "c", "1"]}
-{"doc": {"a": [0]}, "tokens": ["a", "b", "c", "1"]}
-{"doc": {"a": []}, "tokens": ["a", "b", "c", "1"]}
-{"doc": {"a": {"": 9}}, "tokens": ["a", "b", "c", "1"]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a", "b", "c", "1"]}
-{"doc": {"a": {"b": 2}}, "tokens": ["a", "b", "c", "1"]}
-{"doc": {"": 123}, "tokens": ["a", "b", "c", "1"]}
-{"doc": {}, "tokens": ["a", "b", "c", "1"]}
-{"doc": ["x", "y"], "tokens": ["a", "b", "c", "1"]}
-{"doc": [1, 2], "tokens": ["a", "b", "c", "1"]}
-{"doc": [0], "tokens": ["a", "b", "c", "1"]}
-{"doc": [], "tokens": ["a", "b", "c", "1"]}
-{"doc": "a", "tokens": ["a", "b", "c", "1"]}
-{"doc": "", "tokens": ["a", "b", "c", "1"]}
-{"doc": 1, "tokens": ["a", "b", "c", "1"]}
-{"doc": 0, "tokens": ["a", "b", "c", "1"]}
-{"doc": false, "tokens": ["a", "b", "c", "1"]}
-{"doc": true, "tokens": ["a", "b", "c", "1"]}
-{"doc": null, "tokens": ["a", "b", "c", "1"]}
-{"doc": {}, "tokens": ["a", "", "x"]}
-{"doc": {"a": {"b": 2}}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": {"": 9}}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": {"": 9}}, "tokens": ["a", "1", "b"]}
-{"doc": {"a": {"": 9}}, "tokens": ["", "x"]}
-{"doc": {"a": {"": 9}}, "tokens": ["a", "b", "1"]}
-{"doc": {"a": {"": 9}}, "tokens": ["a", "b", "0"]}
-{"doc": {"a": {"": 9}}, "tokens": ["a", "1", "0"]}
-{"doc": {"a": {"": 9}}, "tokens": ["", "x", "y"]}
-{"doc": {"a": {"": 9}}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": {"": 9}}, "tokens": ["a", "foo"]}
-{"doc": {"a": {"": 9}}, "tokens": ["a", "01"]}
-{"doc": {"a": {"": 9}}, "tokens": ["foo"]}
-{"doc": {"a": {"": 9}}, "tokens": ["01"]}
-{"doc": {"a": {"": 9}}, "tokens": ["1"]}
-{"doc": {"a": {"": 9}}, "tokens": ["0"]}
-{"doc": {"a": {"": 9}}, "tokens": ["a", "1"]}
-{"doc": {"a": {"": 9}}, "tokens": ["a", "0"]}
-{"doc": {"a": {"": 9}}, "tokens": ["a", "missing"]}
-{"doc": {"a": {"": 9}}, "tokens": ["a", ""]}
-{"doc": {"a": {"": 9}}, "tokens": ["a", "b"]}
-{"doc": {"a": {"": 9}}, "tokens": ["missing"]}
-{"doc": {"a": {"": 9}}, "tokens": ["b"]}
-{"doc": {"a": {"": 9}}, "tokens": ["a"]}
-{"doc": {"a": {"": 9}}, "tokens": []}
-{"doc": {"a": {"": 9}}, "tokens": [""]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["b"]}
-{"doc": {"a": {"b": 2}}, "tokens": ["missing"]}
-{"doc": {"a": {"b": 2}}, "tokens": ["a", "b"]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a", "b"]}
-{"doc": {"": 123}, "tokens": ["a", "b"]}
-{"doc": {}, "tokens": ["a", "b"]}
-{"doc": ["x", "y"], "tokens": ["a", "b"]}
-{"doc": [1, 2], "tokens": ["a", "b"]}
-{"doc": [], "tokens": ["a", "b"]}
-{"doc": "a", "tokens": ["a", "b"]}
-{"doc": "", "tokens": ["a", "b"]}
-{"doc": 1, "tokens": ["a", "b"]}
-{"doc": 0, "tokens": ["a", "b"]}
-{"doc": false, "tokens": ["a", "b"]}
-{"doc": true, "tokens": ["a", "b"]}
-{"doc": null, "tokens": ["a", "b"]}
-{"doc": [0], "tokens": ["a", "b"]}
-{"doc": {"": 123}, "tokens": ["missing"]}
-{"doc": {"": 123}, "tokens": ["b"]}
-{"doc": {"": 123}, "tokens": ["a"]}
-{"doc": {"": 123}, "tokens": []}
-{"doc": {}, "tokens": []}
-{"doc": {"a": 1}, "tokens": []}
-{"doc": {}, "tokens": ["b"]}
-{"doc": {}, "tokens": ["a"]}
-{"doc": {}, "tokens": ["missing"]}
-{"doc": {}, "tokens": ["a", ""]}
-{"doc": {}, "tokens": ["a", "missing"]}
-{"doc": {}, "tokens": ["a", "0"]}
-{"doc": {}, "tokens": ["a", "1"]}
-{"doc": {}, "tokens": ["0"]}
-{"doc": {}, "tokens": ["01"]}
-{"doc": {}, "tokens": ["1"]}
-{"doc": {}, "tokens": ["a", "01"]}
-{"doc": {}, "tokens": ["foo"]}
-{"doc": {}, "tokens": ["a", "foo"]}
-{"doc": {}, "tokens": ["a", "0", "b"]}
-{"doc": {}, "tokens": ["a", "1", "0"]}
-{"doc": {}, "tokens": ["a", "b", "0"]}
-{"doc": {}, "tokens": ["a", "b", "1"]}
-{"doc": {}, "tokens": ["a", "0", "b"]}
-{"doc": {}, "tokens": ["a", "1", "b"]}
-{"doc": {}, "tokens": ["", "x"]}
-{"doc": {}, "tokens": ["", "x", "y"]}
-{"doc": {"a": ["x", "y"]}, "tokens": [""]}
-{"doc": {"a": []}, "tokens": [""]}
-{"doc": {"a": [0]}, "tokens": [""]}
-{"doc": {"a": {"b": [1, 2]}}, "tokens": [""]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": [""]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": [""]}
-{"doc": {"": {"x": {"y": 3}}}, "tokens": [""]}
-{"doc": [{"a": 1}, {"a": 2}], "tokens": [""]}
-{"doc": {"a": {"b": {"c": [0, 1]}}}, "tokens": [""]}
-{"doc": {"a": {"b": {"c": [0, 1]}}}, "tokens": ["a"]}
-{"doc": [{"a": 1}, {"a": 2}], "tokens": ["a"]}
-{"doc": {"": {"x": {"y": 3}}}, "tokens": ["a"]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a"]}
-{"doc": {"a": {"b": [1, 2]}}, "tokens": ["a"]}
-{"doc": {"a": [0]}, "tokens": ["a"]}
-{"doc": {"a": []}, "tokens": ["a"]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a"]}
-{"doc": {"a": {"b": 2}}, "tokens": ["a"]}
-{"doc": {"a": [0]}, "tokens": ["b"]}
-{"doc": {"a": []}, "tokens": ["b"]}
-{"doc": {"a": {"b": [1, 2]}}, "tokens": ["b"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["b"]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["b"]}
-{"doc": {"": {"x": {"y": 3}}}, "tokens": ["b"]}
-{"doc": [{"a": 1}, {"a": 2}], "tokens": ["b"]}
-{"doc": {"a": {"b": {"c": [0, 1]}}}, "tokens": ["b"]}
-{"doc": {"a": {"b": 2}}, "tokens": ["b"]}
-{"doc": {"a": ["x", "y"]}, "tokens": []}
-{"doc": {"a": {"b": [1, 2]}}, "tokens": []}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": []}
-{"doc": {"a": [0]}, "tokens": []}
-{"doc": {"a": []}, "tokens": []}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": []}
-{"doc": {"": {"x": {"y": 3}}}, "tokens": []}
-{"doc": [{"a": 1}, {"a": 2}], "tokens": []}
-{"doc": {"a": {"b": {"c": [0, 1]}}}, "tokens": []}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["missing"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a", ""]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "missing"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "0"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "1"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["0"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["01"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["1"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "01"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["foo"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "foo"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "1", "0"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "b", "0"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "b", "1"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "1", "b"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["", "x"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["", "x", "y"]}
-{"doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "b"]}
-{"doc": {"a": {"b": [1, 2]}}, "tokens": ["a", "b", "1"]}
-{"doc": {"a": {"b": [1, 2]}}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": {"b": [1, 2]}}, "tokens": ["a", "1", "b"]}
-{"doc": {"a": {"b": [1, 2]}}, "tokens": ["", "x"]}
-{"doc": {"a": {"b": [1, 2]}}, "tokens": ["a", "b", "0"]}
-{"doc": {"a": {"b": [1, 2]}}, "tokens": ["a", "1", "0"]}
-{"doc": {"a": {"b": [1, 2]}}, "tokens": ["a", "b"]}
-{"doc": {"a": [0]}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": [0]}, "tokens": ["a", "b", "1"]}
-{"doc": {"a": [0]}, "tokens": ["a", "b", "0"]}
-{"doc": {"a": [0]}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": [0]}, "tokens": ["a", "foo"]}
-{"doc": {"a": [0]}, "tokens": ["a", "01"]}
-{"doc": {"a": [0]}, "tokens": ["a", "0"]}
-{"doc": {"a": [0]}, "tokens": ["a", "missing"]}
-{"doc": {"a": [0]}, "tokens": ["a", ""]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a", "b", "1"]}
-{"doc": {"a": {"b": 2}}, "tokens": ["a", "b", "1"]}
-{"doc": ["x", "y"], "tokens": ["a", "b", "1"]}
-{"doc": [1, 2], "tokens": ["a", "b", "1"]}
-{"doc": [0], "tokens": ["a", "b", "1"]}
-{"doc": [], "tokens": ["a", "b", "1"]}
-{"doc": "a", "tokens": ["a", "b", "1"]}
-{"doc": "", "tokens": ["a", "b", "1"]}
-{"doc": 1, "tokens": ["a", "b", "1"]}
-{"doc": 0, "tokens": ["a", "b", "1"]}
-{"doc": false, "tokens": ["a", "b", "1"]}
-{"doc": true, "tokens": ["a", "b", "1"]}
-{"doc": null, "tokens": ["a", "b", "1"]}
-{"doc": {"a": {"b": 2}}, "tokens": ["a", "b", "0"]}
-{"doc": {"a": []}, "tokens": ["a", "b"]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "b"]}
-{"doc": {"a": []}, "tokens": ["a", "01"]}
-{"doc": {"a": []}, "tokens": ["a", "foo"]}
-{"doc": {"a": []}, "tokens": ["a", "b", "0"]}
-{"doc": {"a": []}, "tokens": ["a", "missing"]}
-{"doc": {"a": []}, "tokens": ["a", ""]}
-{"doc": {"a": []}, "tokens": ["a", "b", "1"]}
-{"doc": {"": {"x": {"y": 3}}}, "tokens": ["", "x"]}
-{"doc": {"": {"x": {"y": 3}}}, "tokens": ["", "x", "y"]}
-{"doc": {"": 123}, "tokens": ["", "x"]}
-{"doc": ["x", "y"], "tokens": ["", "x"]}
-{"doc": [1, 2], "tokens": ["", "x"]}
-{"doc": [0], "tokens": ["", "x"]}
-{"doc": [], "tokens": ["", "x"]}
-{"doc": "a", "tokens": ["", "x"]}
-{"doc": "", "tokens": ["", "x"]}
-{"doc": 1, "tokens": ["", "x"]}
-{"doc": 0, "tokens": ["", "x"]}
-{"doc": false, "tokens": ["", "x"]}
-{"doc": true, "tokens": ["", "x"]}
-{"doc": null, "tokens": ["", "x"]}
-{"doc": false, "tokens": ["", "x", "y"]}
-{"doc": true, "tokens": ["", "x", "y"]}
-{"doc": null, "tokens": ["", "x", "y"]}
-{"doc": 0, "tokens": ["", "x", "y"]}
-{"doc": 1, "tokens": ["", "x", "y"]}
-{"doc": "", "tokens": ["", "x", "y"]}
-{"doc": "a", "tokens": ["", "x", "y"]}
-{"doc": [], "tokens": ["", "x", "y"]}
-{"doc": [1, 2], "tokens": ["", "x", "y"]}
-{"doc": ["x", "y"], "tokens": ["", "x", "y"]}
-{"doc": [0], "tokens": ["", "x", "y"]}
-{"doc": ["x", "y"], "tokens": ["a", "", "x"]}
-{"doc": [1, 2], "tokens": ["a", "", "x"]}
-{"doc": [0], "tokens": ["a", "", "x"]}
-{"doc": [], "tokens": ["a", "", "x"]}
-{"doc": "a", "tokens": ["a", "", "x"]}
-{"doc": "", "tokens": ["a", "", "x"]}
-{"doc": 1, "tokens": ["a", "", "x"]}
-{"doc": 0, "tokens": ["a", "", "x"]}
-{"doc": false, "tokens": ["a", "", "x"]}
-{"doc": true, "tokens": ["a", "", "x"]}
-{"doc": null, "tokens": ["a", "", "x"]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a", "1", "0"]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a", "b", "0"]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a", "1", "b"]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a", "01"]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a", "foo"]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a", "1"]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a", "0"]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a", "missing"]}
-{"doc": {"a": ["x", "y"]}, "tokens": ["a", ""]}
-{"doc": {"a": {"b": 2}}, "tokens": []}
-{"doc": [{"a": 1}, {"a": 2}], "tokens": ["a", "b"]}
-{"doc": {"a": {"b": {"c": [0, 1]}}}, "tokens": ["a", "b"]}
-{"doc": [{"a": 1}, {"a": 2}], "tokens": ["missing"]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "b", "0"]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "1", "b"]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "0", "b"]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "foo"]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "01"]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "1"]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "0"]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "missing"]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", ""]}
-{"doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "b", "1"]}
-{"doc": ["x", "y"], "tokens": ["a", "b", "0"]}
-{"doc": [0], "tokens": ["0"]}
-{"doc": ["x", "y"], "tokens": ["1"]}
-{"doc": ["x", "y"], "tokens": ["0"]}
-{"doc": [{"a": 1}, {"a": 2}], "tokens": ["1"]}
-{"doc": [{"a": 1}, {"a": 2}], "tokens": ["0"]}
-{"doc": [0], "tokens": []}
-{"doc": 1, "tokens": []}
-{"doc": 0, "tokens": []}
-{"doc": false, "tokens": []}
-{"doc": true, "tokens": []}
-{"doc": "", "tokens": []}
-{"doc": "a", "tokens": []}
-{"doc": [], "tokens": []}
-{"doc": [1, 2], "tokens": ["0"]}
-{"doc": [1, 2], "tokens": ["1"]}
-{"doc": ["x", "y"], "tokens": []}
-{"doc": [1, 2], "tokens": []}
+{"op": "get", "doc": null, "tokens": []}
+{"op": "get", "doc": null, "tokens": [""]}
+{"op": "get", "doc": null, "tokens": ["a"]}
+{"op": "get", "doc": null, "tokens": ["b"]}
+{"op": "get", "doc": null, "tokens": ["missing"]}
+{"op": "get", "doc": null, "tokens": ["a", "b"]}
+{"op": "get", "doc": null, "tokens": ["a", ""]}
+{"op": "get", "doc": null, "tokens": ["a", "missing"]}
+{"op": "get", "doc": null, "tokens": ["a", "0"]}
+{"op": "get", "doc": null, "tokens": ["a", "1"]}
+{"op": "get", "doc": null, "tokens": ["0"]}
+{"op": "get", "doc": null, "tokens": ["1"]}
+{"op": "get", "doc": null, "tokens": ["01"]}
+{"op": "get", "doc": null, "tokens": ["foo"]}
+{"op": "get", "doc": null, "tokens": ["a", "01"]}
+{"op": "get", "doc": null, "tokens": ["a", "foo"]}
+{"op": "get", "doc": null, "tokens": ["a", "0", "b"]}
+{"op": "get", "doc": null, "tokens": ["a", "1", "0"]}
+{"op": "get", "doc": null, "tokens": ["a", "b", "0"]}
+{"op": "get", "doc": null, "tokens": ["a", "b", "1"]}
+{"op": "get", "doc": null, "tokens": ["a", "1", "b"]}
+{"op": "get", "doc": null, "tokens": ["", "x"]}
+{"op": "get", "doc": null, "tokens": ["", "x", "y"]}
+{"op": "get", "doc": null, "tokens": ["a", "", "x"]}
+{"op": "get", "doc": null, "tokens": ["a", "b", "c", "1"]}
+{"op": "get", "doc": null, "tokens": ["a", "0", "b", "0"]}
+{"op": "get", "doc": null, "tokens": ["a", "0", "b", "01"]}
+{"op": "get", "doc": null, "tokens": ["a", "0", "b", ""]}
+{"op": "get", "doc": null, "tokens": ["a", "b", "c", "0"]}
+{"op": "get", "doc": null, "tokens": ["a", "b", "c", "01"]}
+{"op": "get", "doc": null, "tokens": ["", ""]}
+{"op": "get", "doc": null, "tokens": ["", "0"]}
+{"op": "get", "doc": null, "tokens": ["a", "00"]}
+{"op": "get", "doc": null, "tokens": ["a", "000"]}
+{"op": "get", "doc": null, "tokens": ["-0"]}
+{"op": "get", "doc": null, "tokens": ["a", "-1"]}
+{"op": "get", "doc": null, "tokens": ["a", "~"]}
+{"op": "get", "doc": null, "tokens": ["a", "/"]}
+{"op": "get", "doc": null, "tokens": ["a", "b/c"]}
+{"op": "get", "doc": null, "tokens": ["a", "d~e"]}
+{"op": "get", "doc": true, "tokens": []}
+{"op": "get", "doc": true, "tokens": [""]}
+{"op": "get", "doc": true, "tokens": ["a"]}
+{"op": "get", "doc": true, "tokens": ["b"]}
+{"op": "get", "doc": true, "tokens": ["missing"]}
+{"op": "get", "doc": true, "tokens": ["a", "b"]}
+{"op": "get", "doc": true, "tokens": ["a", ""]}
+{"op": "get", "doc": true, "tokens": ["a", "missing"]}
+{"op": "get", "doc": true, "tokens": ["a", "0"]}
+{"op": "get", "doc": true, "tokens": ["a", "1"]}
+{"op": "get", "doc": true, "tokens": ["0"]}
+{"op": "get", "doc": true, "tokens": ["1"]}
+{"op": "get", "doc": true, "tokens": ["01"]}
+{"op": "get", "doc": true, "tokens": ["foo"]}
+{"op": "get", "doc": true, "tokens": ["a", "01"]}
+{"op": "get", "doc": true, "tokens": ["a", "foo"]}
+{"op": "get", "doc": true, "tokens": ["a", "0", "b"]}
+{"op": "get", "doc": true, "tokens": ["a", "1", "0"]}
+{"op": "get", "doc": true, "tokens": ["a", "b", "0"]}
+{"op": "get", "doc": true, "tokens": ["a", "b", "1"]}
+{"op": "get", "doc": true, "tokens": ["a", "1", "b"]}
+{"op": "get", "doc": true, "tokens": ["", "x"]}
+{"op": "get", "doc": true, "tokens": ["", "x", "y"]}
+{"op": "get", "doc": true, "tokens": ["a", "", "x"]}
+{"op": "get", "doc": true, "tokens": ["a", "b", "c", "1"]}
+{"op": "get", "doc": true, "tokens": ["a", "0", "b", "0"]}
+{"op": "get", "doc": true, "tokens": ["a", "0", "b", "01"]}
+{"op": "get", "doc": true, "tokens": ["a", "0", "b", ""]}
+{"op": "get", "doc": true, "tokens": ["a", "b", "c", "0"]}
+{"op": "get", "doc": true, "tokens": ["a", "b", "c", "01"]}
+{"op": "get", "doc": true, "tokens": ["", ""]}
+{"op": "get", "doc": true, "tokens": ["", "0"]}
+{"op": "get", "doc": true, "tokens": ["a", "00"]}
+{"op": "get", "doc": true, "tokens": ["a", "000"]}
+{"op": "get", "doc": true, "tokens": ["-0"]}
+{"op": "get", "doc": true, "tokens": ["a", "-1"]}
+{"op": "get", "doc": true, "tokens": ["a", "~"]}
+{"op": "get", "doc": true, "tokens": ["a", "/"]}
+{"op": "get", "doc": true, "tokens": ["a", "b/c"]}
+{"op": "get", "doc": true, "tokens": ["a", "d~e"]}
+{"op": "get", "doc": false, "tokens": []}
+{"op": "get", "doc": false, "tokens": [""]}
+{"op": "get", "doc": false, "tokens": ["a"]}
+{"op": "get", "doc": false, "tokens": ["b"]}
+{"op": "get", "doc": false, "tokens": ["missing"]}
+{"op": "get", "doc": false, "tokens": ["a", "b"]}
+{"op": "get", "doc": false, "tokens": ["a", ""]}
+{"op": "get", "doc": false, "tokens": ["a", "missing"]}
+{"op": "get", "doc": false, "tokens": ["a", "0"]}
+{"op": "get", "doc": false, "tokens": ["a", "1"]}
+{"op": "get", "doc": false, "tokens": ["0"]}
+{"op": "get", "doc": false, "tokens": ["1"]}
+{"op": "get", "doc": false, "tokens": ["01"]}
+{"op": "get", "doc": false, "tokens": ["foo"]}
+{"op": "get", "doc": false, "tokens": ["a", "01"]}
+{"op": "get", "doc": false, "tokens": ["a", "foo"]}
+{"op": "get", "doc": false, "tokens": ["a", "0", "b"]}
+{"op": "get", "doc": false, "tokens": ["a", "1", "0"]}
+{"op": "get", "doc": false, "tokens": ["a", "b", "0"]}
+{"op": "get", "doc": false, "tokens": ["a", "b", "1"]}
+{"op": "get", "doc": false, "tokens": ["a", "1", "b"]}
+{"op": "get", "doc": false, "tokens": ["", "x"]}
+{"op": "get", "doc": false, "tokens": ["", "x", "y"]}
+{"op": "get", "doc": false, "tokens": ["a", "", "x"]}
+{"op": "get", "doc": false, "tokens": ["a", "b", "c", "1"]}
+{"op": "get", "doc": false, "tokens": ["a", "0", "b", "0"]}
+{"op": "get", "doc": false, "tokens": ["a", "0", "b", "01"]}
+{"op": "get", "doc": false, "tokens": ["a", "0", "b", ""]}
+{"op": "get", "doc": false, "tokens": ["a", "b", "c", "0"]}
+{"op": "get", "doc": false, "tokens": ["a", "b", "c", "01"]}
+{"op": "get", "doc": false, "tokens": ["", ""]}
+{"op": "get", "doc": false, "tokens": ["", "0"]}
+{"op": "get", "doc": false, "tokens": ["a", "00"]}
+{"op": "get", "doc": false, "tokens": ["a", "000"]}
+{"op": "get", "doc": false, "tokens": ["-0"]}
+{"op": "get", "doc": false, "tokens": ["a", "-1"]}
+{"op": "get", "doc": false, "tokens": ["a", "~"]}
+{"op": "get", "doc": false, "tokens": ["a", "/"]}
+{"op": "get", "doc": false, "tokens": ["a", "b/c"]}
+{"op": "get", "doc": false, "tokens": ["a", "d~e"]}
+{"op": "get", "doc": 0, "tokens": []}
+{"op": "get", "doc": 0, "tokens": [""]}
+{"op": "get", "doc": 0, "tokens": ["a"]}
+{"op": "get", "doc": 0, "tokens": ["b"]}
+{"op": "get", "doc": 0, "tokens": ["missing"]}
+{"op": "get", "doc": 0, "tokens": ["a", "b"]}
+{"op": "get", "doc": 0, "tokens": ["a", ""]}
+{"op": "get", "doc": 0, "tokens": ["a", "missing"]}
+{"op": "get", "doc": 0, "tokens": ["a", "0"]}
+{"op": "get", "doc": 0, "tokens": ["a", "1"]}
+{"op": "get", "doc": 0, "tokens": ["0"]}
+{"op": "get", "doc": 0, "tokens": ["1"]}
+{"op": "get", "doc": 0, "tokens": ["01"]}
+{"op": "get", "doc": 0, "tokens": ["foo"]}
+{"op": "get", "doc": 0, "tokens": ["a", "01"]}
+{"op": "get", "doc": 0, "tokens": ["a", "foo"]}
+{"op": "get", "doc": 0, "tokens": ["a", "0", "b"]}
+{"op": "get", "doc": 0, "tokens": ["a", "1", "0"]}
+{"op": "get", "doc": 0, "tokens": ["a", "b", "0"]}
+{"op": "get", "doc": 0, "tokens": ["a", "b", "1"]}
+{"op": "get", "doc": 0, "tokens": ["a", "1", "b"]}
+{"op": "get", "doc": 0, "tokens": ["", "x"]}
+{"op": "get", "doc": 0, "tokens": ["", "x", "y"]}
+{"op": "get", "doc": 0, "tokens": ["a", "", "x"]}
+{"op": "get", "doc": 0, "tokens": ["a", "b", "c", "1"]}
+{"op": "get", "doc": 0, "tokens": ["a", "0", "b", "0"]}
+{"op": "get", "doc": 0, "tokens": ["a", "0", "b", "01"]}
+{"op": "get", "doc": 0, "tokens": ["a", "0", "b", ""]}
+{"op": "get", "doc": 0, "tokens": ["a", "b", "c", "0"]}
+{"op": "get", "doc": 0, "tokens": ["a", "b", "c", "01"]}
+{"op": "get", "doc": 0, "tokens": ["", ""]}
+{"op": "get", "doc": 0, "tokens": ["", "0"]}
+{"op": "get", "doc": 0, "tokens": ["a", "00"]}
+{"op": "get", "doc": 0, "tokens": ["a", "000"]}
+{"op": "get", "doc": 0, "tokens": ["-0"]}
+{"op": "get", "doc": 0, "tokens": ["a", "-1"]}
+{"op": "get", "doc": 0, "tokens": ["a", "~"]}
+{"op": "get", "doc": 0, "tokens": ["a", "/"]}
+{"op": "get", "doc": 0, "tokens": ["a", "b/c"]}
+{"op": "get", "doc": 0, "tokens": ["a", "d~e"]}
+{"op": "get", "doc": 1, "tokens": []}
+{"op": "get", "doc": 1, "tokens": [""]}
+{"op": "get", "doc": 1, "tokens": ["a"]}
+{"op": "get", "doc": 1, "tokens": ["b"]}
+{"op": "get", "doc": 1, "tokens": ["missing"]}
+{"op": "get", "doc": "", "tokens": []}
+{"op": "get", "doc": "a", "tokens": []}
+{"op": "get", "doc": [], "tokens": []}
+{"op": "get", "doc": [], "tokens": ["0"]}
+{"op": "get", "doc": [], "tokens": ["1"]}
+{"op": "get", "doc": [0], "tokens": []}
+{"op": "get", "doc": [0], "tokens": ["0"]}
+{"op": "get", "doc": [0], "tokens": ["1"]}
+{"op": "get", "doc": [1, 2], "tokens": []}
+{"op": "get", "doc": [1, 2], "tokens": ["0"]}
+{"op": "get", "doc": [1, 2], "tokens": ["1"]}
+{"op": "get", "doc": ["x", "y"], "tokens": []}
+{"op": "get", "doc": ["x", "y"], "tokens": ["0"]}
+{"op": "get", "doc": ["x", "y"], "tokens": ["1"]}
+{"op": "get", "doc": {}, "tokens": []}
+{"op": "get", "doc": {}, "tokens": [""]}
+{"op": "get", "doc": {}, "tokens": ["a"]}
+{"op": "get", "doc": {}, "tokens": ["b"]}
+{"op": "get", "doc": {}, "tokens": ["missing"]}
+{"op": "get", "doc": {}, "tokens": ["a", "b"]}
+{"op": "get", "doc": {}, "tokens": ["a", ""]}
+{"op": "get", "doc": {}, "tokens": ["a", "missing"]}
+{"op": "get", "doc": {}, "tokens": ["a", "0"]}
+{"op": "get", "doc": {}, "tokens": ["a", "1"]}
+{"op": "get", "doc": {}, "tokens": ["0"]}
+{"op": "get", "doc": {}, "tokens": ["1"]}
+{"op": "get", "doc": {}, "tokens": ["01"]}
+{"op": "get", "doc": {}, "tokens": ["foo"]}
+{"op": "get", "doc": {}, "tokens": ["a", "01"]}
+{"op": "get", "doc": {}, "tokens": ["a", "foo"]}
+{"op": "get", "doc": {}, "tokens": ["a", "0", "b"]}
+{"op": "get", "doc": {}, "tokens": ["a", "1", "0"]}
+{"op": "get", "doc": {}, "tokens": ["a", "b", "0"]}
+{"op": "get", "doc": {}, "tokens": ["a", "b", "1"]}
+{"op": "get", "doc": {}, "tokens": ["a", "1", "b"]}
+{"op": "get", "doc": {}, "tokens": ["", "x"]}
+{"op": "get", "doc": {}, "tokens": ["", "x", "y"]}
+{"op": "get", "doc": {}, "tokens": ["a", "", "x"]}
+{"op": "get", "doc": {}, "tokens": ["a", "b", "c", "1"]}
+{"op": "get", "doc": {}, "tokens": ["a", "0", "b", "0"]}
+{"op": "get", "doc": {}, "tokens": ["a", "0", "b", "01"]}
+{"op": "get", "doc": {}, "tokens": ["a", "0", "b", ""]}
+{"op": "get", "doc": {}, "tokens": ["a", "b", "c", "0"]}
+{"op": "get", "doc": {}, "tokens": ["a", "b", "c", "01"]}
+{"op": "get", "doc": {}, "tokens": ["", ""]}
+{"op": "get", "doc": {}, "tokens": ["", "0"]}
+{"op": "get", "doc": {}, "tokens": ["a", "00"]}
+{"op": "get", "doc": {}, "tokens": ["a", "000"]}
+{"op": "get", "doc": {}, "tokens": ["-0"]}
+{"op": "get", "doc": {}, "tokens": ["a", "-1"]}
+{"op": "get", "doc": {}, "tokens": ["a", "~"]}
+{"op": "get", "doc": {}, "tokens": ["a", "/"]}
+{"op": "get", "doc": {}, "tokens": ["a", "b/c"]}
+{"op": "get", "doc": {}, "tokens": ["a", "d~e"]}
+{"op": "get", "doc": {"a": 1}, "tokens": []}
+{"op": "get", "doc": {"a": 1}, "tokens": [""]}
+{"op": "get", "doc": {"a": 1}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": 1}, "tokens": ["b"]}
+{"op": "get", "doc": {"a": 1}, "tokens": ["missing"]}
+{"op": "get", "doc": {"a": 1}, "tokens": ["0"]}
+{"op": "get", "doc": {"a": 1}, "tokens": ["1"]}
+{"op": "get", "doc": {"a": 1}, "tokens": ["01"]}
+{"op": "get", "doc": {"a": 1}, "tokens": ["foo"]}
+{"op": "get", "doc": {"a": 1}, "tokens": ["", "x"]}
+{"op": "get", "doc": {"a": 1}, "tokens": ["", "x", "y"]}
+{"op": "get", "doc": {"a": 1}, "tokens": ["", ""]}
+{"op": "get", "doc": {"a": 1}, "tokens": ["", "0"]}
+{"op": "get", "doc": {"a": 1}, "tokens": ["-0"]}
+{"op": "get", "doc": {"": 123}, "tokens": []}
+{"op": "get", "doc": {"": 123}, "tokens": [""]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["b"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["missing"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "b"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", ""]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "missing"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "0"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "1"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["0"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["1"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["01"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["foo"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "01"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "foo"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "0", "b"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "1", "0"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "b", "0"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "b", "1"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "1", "b"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "", "x"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "b", "c", "1"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "0", "b", "0"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "0", "b", "01"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "0", "b", ""]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "b", "c", "0"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "b", "c", "01"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "00"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "000"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["-0"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "-1"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "~"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "/"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "b/c"]}
+{"op": "get", "doc": {"": 123}, "tokens": ["a", "d~e"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": []}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": [""]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["b"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["missing"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "b"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", ""]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "missing"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "0"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "1"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["0"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["1"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["01"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["foo"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "01"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "foo"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "0", "b"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "1", "0"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "1", "b"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["", "x"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["", "x", "y"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "", "x"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "0", "b", "0"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "0", "b", "01"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "0", "b", ""]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["", ""]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["", "0"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "00"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "000"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["-0"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "-1"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "~"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "/"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "b/c"]}
+{"op": "get", "doc": {"a": {"b": 2}}, "tokens": ["a", "d~e"]}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": []}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": [""]}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": ["b"]}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": ["missing"]}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": ["a", "0"]}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": ["a", "1"]}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": ["0"]}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": ["1"]}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": ["01"]}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": ["foo"]}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": ["", "x"]}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": ["", "x", "y"]}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": ["", ""]}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": ["", "0"]}
+{"op": "get", "doc": {"a": ["x", "y"]}, "tokens": ["-0"]}
+{"op": "get", "doc": {"a": {"": 9}}, "tokens": []}
+{"op": "get", "doc": {"a": {"": 9}}, "tokens": [""]}
+{"op": "get", "doc": {"a": {"": 9}}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": {"": 9}}, "tokens": ["b"]}
+{"op": "get", "doc": {"a": {"": 9}}, "tokens": ["missing"]}
+{"op": "get", "doc": {"a": {"": 9}}, "tokens": ["a", "b"]}
+{"op": "get", "doc": {"a": {"": 9}}, "tokens": ["a", ""]}
+{"op": "get", "doc": {"a": {"": 9}}, "tokens": ["a", "missing"]}
+{"op": "get", "doc": {"a": {"": 9}}, "tokens": ["a", "0"]}
+{"op": "get", "doc": {"a": {"": 9}}, "tokens": ["a", "1"]}
+{"op": "get", "doc": {"a": {"": 9}}, "tokens": ["0"]}
+{"op": "get", "doc": {"a": []}, "tokens": []}
+{"op": "get", "doc": {"a": []}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": [0]}, "tokens": []}
+{"op": "get", "doc": {"a": [0]}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": [0]}, "tokens": ["a", "0"]}
+{"op": "get", "doc": {"a": {"b": [1, 2]}}, "tokens": []}
+{"op": "get", "doc": {"a": {"b": [1, 2]}}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": {"b": [1, 2]}}, "tokens": ["a", "b"]}
+{"op": "get", "doc": {"a": {"b": [1, 2]}}, "tokens": ["a", "b", "0"]}
+{"op": "get", "doc": {"a": {"b": [1, 2]}}, "tokens": ["a", "b", "1"]}
+{"op": "get", "doc": {"a": {"b": [10, 20]}}, "tokens": []}
+{"op": "get", "doc": {"a": {"b": [10, 20]}}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "b"]}
+{"op": "get", "doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "b", "0"]}
+{"op": "get", "doc": {"a": {"b": [10, 20]}}, "tokens": ["a", "b", "1"]}
+{"op": "get", "doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": []}
+{"op": "get", "doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "0"]}
+{"op": "get", "doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "1"]}
+{"op": "get", "doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "0", "b"]}
+{"op": "get", "doc": {"a": [{"b": 1}, {"b": 2}]}, "tokens": ["a", "1", "b"]}
+{"op": "get", "doc": {"": {"x": {"y": 3}}}, "tokens": []}
+{"op": "get", "doc": {"": {"x": {"y": 3}}}, "tokens": [""]}
+{"op": "get", "doc": {"": {"x": {"y": 3}}}, "tokens": ["", "x"]}
+{"op": "get", "doc": {"": {"x": {"y": 3}}}, "tokens": ["", "x", "y"]}
+{"op": "get", "doc": [{"a": 1}, {"a": 2}], "tokens": []}
+{"op": "get", "doc": [{"a": 1}, {"a": 2}], "tokens": ["0"]}
+{"op": "get", "doc": [{"a": 1}, {"a": 2}], "tokens": ["1"]}
+{"op": "get", "doc": {"a": {"b": {"c": [0, 1]}}}, "tokens": []}
+{"op": "get", "doc": {"a": {"b": {"c": [0, 1]}}}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": {"b": {"c": [0, 1]}}}, "tokens": ["a", "b"]}
+{"op": "get", "doc": {"a": {"b": {"c": [0, 1]}}}, "tokens": ["a", "b", "c", "1"]}
+{"op": "get", "doc": {"a": {"b": {"c": [0, 1]}}}, "tokens": ["a", "b", "c", "0"]}
+{"op": "get", "doc": {"a": {"": {"x": [7, 8]}}}, "tokens": []}
+{"op": "get", "doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", ""]}
+{"op": "get", "doc": {"a": {"": {"x": [7, 8]}}}, "tokens": ["a", "", "x"]}
+{"op": "get", "doc": {"a": [{"b": [0, 1]}, {"b": [2]}]}, "tokens": []}
+{"op": "get", "doc": {"a": [{"b": [0, 1]}, {"b": [2]}]}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": [{"b": [0, 1]}, {"b": [2]}]}, "tokens": ["a", "0"]}
+{"op": "get", "doc": {"a": [{"b": [0, 1]}, {"b": [2]}]}, "tokens": ["a", "1"]}
+{"op": "get", "doc": {"a": [{"b": [0, 1]}, {"b": [2]}]}, "tokens": ["a", "0", "b"]}
+{"op": "get", "doc": {"a": [{"b": [0, 1]}, {"b": [2]}]}, "tokens": ["a", "1", "b"]}
+{"op": "get", "doc": {"a": [{"b": [0, 1]}, {"b": [2]}]}, "tokens": ["a", "0", "b", "0"]}
+{"op": "get", "doc": {"a": {"b": [{"c": 0}, {"c": 1}]}}, "tokens": []}
+{"op": "get", "doc": {"a": {"b": [{"c": 0}, {"c": 1}]}}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": {"b": [{"c": 0}, {"c": 1}]}}, "tokens": ["a", "b"]}
+{"op": "get", "doc": {"a": {"b": [{"c": 0}, {"c": 1}]}}, "tokens": ["a", "b", "0"]}
+{"op": "get", "doc": {"a": {"b": [{"c": 0}, {"c": 1}]}}, "tokens": ["a", "b", "1"]}
+{"op": "get", "doc": {"": {"": [{"": 1}]}}, "tokens": []}
+{"op": "get", "doc": {"": {"": [{"": 1}]}}, "tokens": [""]}
+{"op": "get", "doc": {"": {"": [{"": 1}]}}, "tokens": ["", ""]}
+{"op": "get", "doc": [{"": {"a": [1]}}, {"": {"a": [2]}}], "tokens": []}
+{"op": "get", "doc": [{"": {"a": [1]}}, {"": {"a": [2]}}], "tokens": ["0"]}
+{"op": "get", "doc": [{"": {"a": [1]}}, {"": {"a": [2]}}], "tokens": ["1"]}
+{"op": "get", "doc": {"a": [[], [0], [0, 1]]}, "tokens": []}
+{"op": "get", "doc": {"a": [[], [0], [0, 1]]}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": [[], [0], [0, 1]]}, "tokens": ["a", "0"]}
+{"op": "get", "doc": {"a": [[], [0], [0, 1]]}, "tokens": ["a", "1"]}
+{"op": "get", "doc": {"a": [[], [0], [0, 1]]}, "tokens": ["a", "1", "0"]}
+{"op": "get", "doc": {"a": {"b": {"c": {"d": 1}}}}, "tokens": []}
+{"op": "get", "doc": {"a": {"b": {"c": {"d": 1}}}}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": {"b": {"c": {"d": 1}}}}, "tokens": ["a", "b"]}
+{"op": "get", "doc": {"a": [{"b": {}}, {"b": {"c": 1}}]}, "tokens": []}
+{"op": "get", "doc": {"a": [{"b": {}}, {"b": {"c": 1}}]}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": [{"b": {}}, {"b": {"c": 1}}]}, "tokens": ["a", "0"]}
+{"op": "get", "doc": {"a": [{"b": {}}, {"b": {"c": 1}}]}, "tokens": ["a", "1"]}
+{"op": "get", "doc": {"a": [{"b": {}}, {"b": {"c": 1}}]}, "tokens": ["a", "0", "b"]}
+{"op": "get", "doc": {"a": [{"b": {}}, {"b": {"c": 1}}]}, "tokens": ["a", "1", "b"]}
+{"op": "get", "doc": {"a": {"0": [1, 2]}}, "tokens": []}
+{"op": "get", "doc": {"a": {"0": [1, 2]}}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": {"0": [1, 2]}}, "tokens": ["a", "0"]}
+{"op": "get", "doc": {"a": {"01": [1]}}, "tokens": []}
+{"op": "get", "doc": {"a": {"01": [1]}}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": {"01": [1]}}, "tokens": ["a", "01"]}
+{"op": "get", "doc": {"a": [{"01": 1}]}, "tokens": []}
+{"op": "get", "doc": {"a": [{"01": 1}]}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": [{"01": 1}]}, "tokens": ["a", "0"]}
+{"op": "get", "doc": {"a": {"~": 1, "/": 2}}, "tokens": []}
+{"op": "get", "doc": {"a": {"~": 1, "/": 2}}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": {"~": 1, "/": 2}}, "tokens": ["a", "~"]}
+{"op": "get", "doc": {"a": {"~": 1, "/": 2}}, "tokens": ["a", "/"]}
+{"op": "get", "doc": {"a": {"b/c": 3, "d~e": 4}}, "tokens": []}
+{"op": "get", "doc": {"a": {"b/c": 3, "d~e": 4}}, "tokens": ["a"]}
+{"op": "get", "doc": {"a": {"b/c": 3, "d~e": 4}}, "tokens": ["a", "b/c"]}
+{"op": "get", "doc": {"a": {"b/c": 3, "d~e": 4}}, "tokens": ["a", "d~e"]}
+{"op": "resolveLocalRef", "doc": null, "ref": "#"}
+{"op": "resolveLocalRef", "doc": null, "ref": ""}
+{"op": "resolveLocalRef", "doc": null, "ref": "#foo"}
+{"op": "resolveLocalRef", "doc": null, "ref": "other.json#/a"}
+{"op": "resolveLocalRef", "doc": null, "ref": "http://x/y#/a"}
+{"op": "resolveLocalRef", "doc": null, "ref": "#/~2"}
+{"op": "resolveLocalRef", "doc": null, "ref": "#/~"}
+{"op": "resolveLocalRef", "doc": null, "ref": "#/a/~2"}
+{"op": "resolveLocalRef", "doc": null, "ref": "#/a/~"}
+{"op": "resolveLocalRef", "doc": true, "ref": "#"}
+{"op": "resolveLocalRef", "doc": true, "ref": ""}
+{"op": "resolveLocalRef", "doc": true, "ref": "#foo"}
+{"op": "resolveLocalRef", "doc": true, "ref": "other.json#/a"}
+{"op": "resolveLocalRef", "doc": true, "ref": "http://x/y#/a"}
+{"op": "resolveLocalRef", "doc": true, "ref": "#/~2"}
+{"op": "resolveLocalRef", "doc": true, "ref": "#/~"}
+{"op": "resolveLocalRef", "doc": true, "ref": "#/a/~2"}
+{"op": "resolveLocalRef", "doc": true, "ref": "#/a/~"}
+{"op": "resolveLocalRef", "doc": false, "ref": "#"}
+{"op": "resolveLocalRef", "doc": false, "ref": ""}
+{"op": "resolveLocalRef", "doc": false, "ref": "#foo"}
+{"op": "resolveLocalRef", "doc": false, "ref": "other.json#/a"}
+{"op": "resolveLocalRef", "doc": false, "ref": "http://x/y#/a"}
+{"op": "resolveLocalRef", "doc": false, "ref": "#/~2"}
+{"op": "resolveLocalRef", "doc": false, "ref": "#/~"}
+{"op": "resolveLocalRef", "doc": false, "ref": "#/a/~2"}
+{"op": "resolveLocalRef", "doc": false, "ref": "#/a/~"}
+{"op": "resolveLocalRef", "doc": 0, "ref": ""}
+{"op": "resolveLocalRef", "doc": 0, "ref": "#foo"}
+{"op": "resolveLocalRef", "doc": 0, "ref": "other.json#/a"}
+{"op": "resolveLocalRef", "doc": 0, "ref": "http://x/y#/a"}
+{"op": "resolveLocalRef", "doc": 0, "ref": "#/~2"}
+{"op": "resolveLocalRef", "doc": 0, "ref": "#/~"}
+{"op": "resolveLocalRef", "doc": 0, "ref": "#/a/~2"}
+{"op": "resolveLocalRef", "doc": 0, "ref": "#/a/~"}
+{"op": "resolveLocalRef", "doc": 1, "ref": ""}
+{"op": "resolveLocalRef", "doc": 1, "ref": "#foo"}
+{"op": "resolveLocalRef", "doc": 1, "ref": "other.json#/a"}
+{"op": "resolveLocalRef", "doc": 1, "ref": "http://x/y#/a"}
+{"op": "resolveLocalRef", "doc": 1, "ref": "#/~2"}
+{"op": "resolveLocalRef", "doc": 1, "ref": "#/~"}
+{"op": "resolveLocalRef", "doc": 1, "ref": "#/a/~2"}
+{"op": "resolveLocalRef", "doc": 1, "ref": "#/a/~"}
+{"op": "resolveLocalRef", "doc": "", "ref": ""}
+{"op": "resolveLocalRef", "doc": "", "ref": "#foo"}
+{"op": "resolveLocalRef", "doc": "", "ref": "other.json#/a"}
+{"op": "resolveLocalRef", "doc": "", "ref": "http://x/y#/a"}
+{"op": "resolveLocalRef", "doc": "", "ref": "#/~2"}
+{"op": "resolveLocalRef", "doc": "", "ref": "#/~"}
+{"op": "resolveLocalRef", "doc": "", "ref": "#/a/~2"}
+{"op": "resolveLocalRef", "doc": "", "ref": "#/a/~"}
+{"op": "resolveLocalRef", "doc": "a", "ref": ""}
+{"op": "resolveLocalRef", "doc": "a", "ref": "#foo"}
+{"op": "resolveLocalRef", "doc": "a", "ref": "other.json#/a"}
+{"op": "resolveLocalRef", "doc": "a", "ref": "http://x/y#/a"}
+{"op": "resolveLocalRef", "doc": "a", "ref": "#/~2"}
+{"op": "resolveLocalRef", "doc": "a", "ref": "#/~"}
+{"op": "resolveLocalRef", "doc": "a", "ref": "#/a/~2"}
+{"op": "resolveLocalRef", "doc": "a", "ref": "#/a/~"}
+{"op": "resolveLocalRef", "doc": [], "ref": ""}
+{"op": "resolveLocalRef", "doc": [], "ref": "#foo"}
+{"op": "resolveLocalRef", "doc": [], "ref": "other.json#/a"}
+{"op": "resolveLocalRef", "doc": [], "ref": "http://x/y#/a"}
+{"op": "resolveLocalRef", "doc": [], "ref": "#/~2"}
+{"op": "resolveLocalRef", "doc": [], "ref": "#/~"}
+{"op": "resolveLocalRef", "doc": [], "ref": "#/a/~2"}
+{"op": "resolveLocalRef", "doc": [], "ref": "#/a/~"}
+{"op": "resolveLocalRef", "doc": [0], "ref": ""}
+{"op": "resolveLocalRef", "doc": [0], "ref": "#foo"}
+{"op": "resolveLocalRef", "doc": [0], "ref": "other.json#/a"}
+{"op": "resolveLocalRef", "doc": [0], "ref": "http://x/y#/a"}
+{"op": "resolveLocalRef", "doc": [0], "ref": "#/~2"}
+{"op": "resolveLocalRef", "doc": [0], "ref": "#/~"}
+{"op": "resolveLocalRef", "doc": [0], "ref": "#/a/~2"}
+{"op": "resolveLocalRef", "doc": [0], "ref": "#/a/~"}
+{"op": "resolveLocalRef", "doc": [1, 2], "ref": ""}
+{"op": "resolveLocalRef", "doc": [1, 2], "ref": "#foo"}
+{"op": "resolveLocalRef", "doc": [1, 2], "ref": "other.json#/a"}
+{"op": "resolveLocalRef", "doc": [1, 2], "ref": "http://x/y#/a"}
+{"op": "resolveLocalRef", "doc": [1, 2], "ref": "#/~2"}
+{"op": "resolveLocalRef", "doc": [1, 2], "ref": "#/~"}
+{"op": "resolveLocalRef", "doc": [1, 2], "ref": "#/a/~2"}
+{"op": "resolveLocalRef", "doc": [1, 2], "ref": "#/a/~"}
