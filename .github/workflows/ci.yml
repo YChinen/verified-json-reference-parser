@@ -75,6 +75,7 @@ jobs:
       - name: Build proofs in container
         run: |
           docker run --rm \
+            --user "$(id -u):$(id -g)" \
             -v "${{ github.workspace }}:/repo" -w /repo \
             rocq/rocq-prover:9.0.1 \
             sh -lc 'make -C proof/rocq'
