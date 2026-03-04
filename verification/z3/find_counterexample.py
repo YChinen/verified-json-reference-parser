@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 from typing import Any, Dict, List
 
@@ -6,6 +7,7 @@ from z3 import Int, Optimize, If, sat
 
 from pools import DOCS, REFS_LIST, TOKENS_LIST
 from spec import eval_case, kind_of_result
+from z3_model import z3_eval_case
 
 JSONValue = Any
 
@@ -81,6 +83,19 @@ def main():
     all_cases = build_cases()
     impl_kinds = impl_kinds_batch(all_cases)
     spec_kinds = [kind_of_result(eval_case(case)) for case in all_cases]
+
+    if os.environ.get("CHECK_Z3_ORACLE") == "1":
+        z3_kinds = [kind_of_result(z3_eval_case(case)) for case in all_cases]
+        oracle_mismatches = [
+            idx for idx, (spec_kind, z3_kind) in enumerate(zip(spec_kinds, z3_kinds)) if spec_kind != z3_kind
+        ]
+        if oracle_mismatches:
+            idx = oracle_mismatches[0]
+            raise RuntimeError(
+                f"z3 oracle mismatch at case {idx}: spec={spec_kinds[idx]} z3={z3_kinds[idx]} "
+                f"case={json.dumps(all_cases[idx], ensure_ascii=False)}"
+            )
+
     mismatch_indices = [idx for idx, (impl, spec) in enumerate(zip(impl_kinds, spec_kinds)) if impl != spec]
 
     if not mismatch_indices:

@@ -26,7 +26,8 @@ const CASES_PATHS = [
     "verification/z3/corpus/regression.jsonl",
 ];
 const FAIL_PATH = "verification/z3/corpus/failures.jsonl";
-const ORACLE_CMD = ["python", "verification/z3/oracle.py"];
+const ORACLE_ENGINE = process.env.Z3_ORACLE_ENGINE ?? "z3";
+const ORACLE_CMD = ["python", "verification/z3/oracle.py", `--engine=${ORACLE_ENGINE}`];
 
 function keyOf(c) { return JSON.stringify(c); } // doc/tokens限定なら十分
 
