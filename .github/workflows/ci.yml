@@ -70,24 +70,11 @@ jobs:
       run: npm run verify:z3
   proof:
     runs-on: ubuntu-latest
-    container: 
-      image: rocq/rocq-prover:9.0.1
-      options: --user 0
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Add opam bin to PATH
+      - uses: actions/checkout@v4
+      - name: Build proofs in container
         run: |
-          echo "/home/rocq/.opam/default/bin" >> $GITHUB_PATH
-          echo "/home/rocq/.opam/rocq/bin" >> $GITHUB_PATH
-          echo "/home/rocq/.opam/4.14.1/bin" >> $GITHUB_PATH
-          echo "/home/rocq/.opam/5.1.1/bin" >> $GITHUB_PATH
-      - name: Show prover binaries
-        run: |
-          which rocq || true
-          which coqc || true
-          rocq --version || true
-          coqc --version || true
-      - name: Build proofs
-        run: |
-          make -C proof/rocq
+          docker run --rm \
+            -v "${{ github.workspace }}:/repo" -w /repo \
+            rocq/rocq-prover:9.0.1 \
+            sh -lc 'make -C proof/rocq'
