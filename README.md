@@ -1,4 +1,10 @@
+<!-- typedoc-ignore --> 
 [![CI](https://github.com/YChinen/verified-json-reference-parser/actions/workflows/ci.yml/badge.svg)](https://github.com/YChinen/verified-json-reference-parser/actions/workflows/ci.yml)
+![License](https://img.shields.io/github/license/YChinen/verified-json-reference-parser)
+![Formal verification](https://img.shields.io/badge/formal%20verification-Rocq-blue)
+![SMT](https://img.shields.io/badge/SMT-Z3-orange)
+![Property testing](https://img.shields.io/badge/testing-property--based-purple)
+![Coverage](https://img.shields.io/codecov/c/github/YChinen/verified-json-reference-parser)
 
 # verified-json-reference-parser
 

@@ -13,5 +13,5 @@
   "cleanOutputDir": true,
 
   "sort": ["source-order"],
-  "readme": "none"
+  "readme": "README.md"
 }

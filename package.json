@@ -1,7 +1,7 @@
 {
-  "name": "verified-json-reference-parser",
+  "name": "@ychinen/verified-json-reference-parser",
   "version": "0.0.0",
-  "description": "A practically verified core for JSON Reference resolution in JSON Schema engines.",
+  "description": "Verified JSON Pointer / JSON Reference parser",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -10,12 +10,6 @@
     "dist/",
     "README.md",
     "README_ja.md",
-    "ROADMAP.md",
-    "ROADMAP_ja.md",
-    "ARCHITECTURE.md",
-    "ARCHITECTURE_ja.md",
-    "SEMANTICS.md",
-    "SEMANTICS_ja.md",
     "LICENSE"
   ],
   "exports": {
@@ -33,7 +27,8 @@
     "test": "vitest",
     "test:run": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "verify:z3": "npm run build && node --enable-source-maps verification/z3/diff.mjs"
+    "verify:z3": "npm run build && node --enable-source-maps verification/z3/diff.mjs",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "fast-check": "^4.5.3",
