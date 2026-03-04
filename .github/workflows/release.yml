@@ -1,25 +1,121 @@
-name: Release
+name: GitHub Release
 
 on:
   push:
-    tags:
-      - "v*"
+    branches: ["main"]
+
+permissions:
+  contents: write
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          fetch-depth: 0
+
+      - name: Detect version bump commit
+        id: detect
+        run: |
+          MSG="$(git log -1 --pretty=%s)"
+          echo "msg=$MSG" >> "$GITHUB_OUTPUT"
+          if echo "$MSG" | grep -q "^chore(release): version packages$"; then
+            echo "is_release_commit=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_release_commit=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Read package version
+        if: steps.detect.outputs.is_release_commit == 'true'
+        id: pkg
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Create tag (if missing)
+        if: steps.detect.outputs.is_release_commit == 'true'
+        run: |
+          TAG="${{ steps.pkg.outputs.tag }}"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists"
+            exit 0
+          fi
+          git tag "$TAG"
+          git push origin "$TAG"
+
+      # --- Build release assets (TypeDoc + proof.pdf + npm pack) ---
+      - name: Setup Node
+        if: steps.detect.outputs.is_release_commit == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
           registry-url: https://registry.npmjs.org
 
-      - run: npm ci
-      - run: npm run build
+      - name: Install
+        if: steps.detect.outputs.is_release_commit == 'true'
+        run: npm ci
 
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Build (for docs/pack)
+        if: steps.detect.outputs.is_release_commit == 'true'
+        run: npm run build --if-present
+
+      - name: Generate TypeDoc
+        if: steps.detect.outputs.is_release_commit == 'true'
+        run: npm run docs:api --if-present
+
+      - name: Prepare assets directory
+        if: steps.detect.outputs.is_release_commit == 'true'
+        run: |
+          rm -rf release-assets
+          mkdir -p release-assets
+
+      - name: Zip TypeDoc
+        if: steps.detect.outputs.is_release_commit == 'true'
+        run: |
+          if [ -d docs/api ]; then
+            (cd docs/api && zip -r ../../release-assets/typedoc-api.zip .)
+          else
+            echo "docs/api not found; skipping typedoc zip"
+          fi
+
+      - name: Build Rocq proof + PDF in container
+        if: steps.detect.outputs.is_release_commit == 'true'
+        run: |
+          # /repo is read-only, build in /tmp inside container, output proof.pdf to /out
+          docker run --rm \
+            -v "${{ github.workspace }}:/repo:ro" \
+            -v "${{ github.workspace }}/release-assets:/out" \
+            rocq/rocq-prover:9.0.1 \
+            sh -lc '
+              set -eu
+              cp -r /repo /tmp/repo
+              cd /tmp/repo/proof/rocq
+              make
+              # latex ターゲット名が違うならここを合わせてね（例: make latex）
+              make latex || true
+              if [ -f proof/docs/proof.pdf ]; then
+                cp proof/docs/proof.pdf /out/proof.pdf
+              elif [ -f ./proof/docs/proof.pdf ]; then
+                cp ./proof/docs/proof.pdf /out/proof.pdf
+              else
+                echo "proof.pdf not found; skipping"
+              fi
+            '
+
+      - name: Pack npm tarball
+        if: steps.detect.outputs.is_release_commit == 'true'
+        run: |
+          npm pack
+          mv *.tgz release-assets/ || true
+
+      - name: Create GitHub Release
+        if: steps.detect.outputs.is_release_commit == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.pkg.outputs.tag }}
+          generate_release_notes: true
+          files: |
+            release-assets/*
