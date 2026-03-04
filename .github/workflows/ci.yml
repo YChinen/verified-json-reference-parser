@@ -72,8 +72,10 @@ jobs:
     runs-on: ubuntu-latest
     container: 
       image: rocq/rocq-prover:9.0.1
+      options: --user 0
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Build proofs
         run: |
           make -C proof/rocq
