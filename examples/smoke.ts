@@ -4,7 +4,7 @@ import {
   get,
   resolveLocalRef,
   type JSONValue,
-} from "../dist/index.js"; // build後を想定
+} from "@ychinen/verified-json-reference-parser";
 
 // --- Sample JSON document ---
 const doc: JSONValue = {
