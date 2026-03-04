@@ -1,0 +1,702 @@
+\documentclass[12pt]{report}
+\usepackage[]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fullpage}
+\usepackage{coqdoc}
+\usepackage{amsmath,amssymb}
+\usepackage{url}
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This file has been automatically generated with the command
+%% rocq doc -o proof.tex --latex --interpolate -R . VerifiedJsonRef Types.v Token.v TokenLemmas.v Pointer.v PointerLemmas.v 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\coqlibrary{VerifiedJsonRef.Types}{Library }{VerifiedJsonRef.Types}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{From} \coqdocvar{Stdlib} \coqdockw{Require} \coqdockw{Import} \coqdoclibrary{String}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Open} \coqdockw{Scope} \coqdocvar{string\_scope}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Module} \coqdef{VerifiedJsonRef.Types.Types}{Types}{\coqdocmodule{Types}}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Inductive} \coqdef{VerifiedJsonRef.Types.Types.ErrorKind}{ErrorKind}{\coqdocinductive{ErrorKind}} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{VerifiedJsonRef.Types.Types.InvalidPointer}{InvalidPointer}{\coqdocconstructor{InvalidPointer}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{VerifiedJsonRef.Types.Types.TypeMismatch}{TypeMismatch}{\coqdocconstructor{TypeMismatch}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{VerifiedJsonRef.Types.Types.NotFound}{NotFound}{\coqdocconstructor{NotFound}}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Inductive} \coqdef{VerifiedJsonRef.Types.Types.Result}{Result}{\coqdocinductive{Result}} (\coqdef{VerifiedJsonRef.Types.A:3}{A}{\coqdocbinder{A}} : \coqdockw{Type}) :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{VerifiedJsonRef.Types.Types.Ok}{Ok}{\coqdocconstructor{Ok}} : \coqref{VerifiedJsonRef.Types.A:3}{\coqdocvariable{A}} \coqexternalref{::type scope:x '->' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{\ensuremath{\rightarrow}}} \coqref{VerifiedJsonRef.Types.Result:4}{\coqdocinductive{Result}} \coqref{VerifiedJsonRef.Types.A:3}{\coqdocvariable{A}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{VerifiedJsonRef.Types.Types.Err}{Err}{\coqdocconstructor{Err}} : \coqref{VerifiedJsonRef.Types.Types.ErrorKind}{\coqdocinductive{ErrorKind}} \coqexternalref{::type scope:x '->' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{\ensuremath{\rightarrow}}} \coqref{VerifiedJsonRef.Types.Result:4}{\coqdocinductive{Result}} \coqref{VerifiedJsonRef.Types.A:3}{\coqdocvariable{A}}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Arguments} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} \{\coqdocvar{A}\} \coqdocvar{\_}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Arguments} \coqref{VerifiedJsonRef.Types.Types.Err}{\coqdocconstructor{Err}} \{\coqdocvar{A}\} \coqdocvar{\_}.\coqdoceol
+\coqdocnoindent
+\coqdockw{End} \coqref{VerifiedJsonRef.Types.Types}{\coqdocmodule{Types}}.\coqdoceol
+\end{coqdoccode}
+\coqlibrary{VerifiedJsonRef.Token}{Library }{VerifiedJsonRef.Token}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{From} \coqdocvar{Stdlib} \coqdockw{Require} \coqdockw{Import} \coqdoclibrary{String} \coqdoclibrary{Ascii}.\coqdoceol
+\coqdocnoindent
+\coqdockw{From} \coqdocvar{VerifiedJsonRef} \coqdockw{Require} \coqdockw{Import} \coqref{VerifiedJsonRef.Types}{\coqdoclibrary{Types}}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Import} \coqref{VerifiedJsonRef.Types.Types}{\coqdocmodule{Types}}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Open} \coqdockw{Scope} \coqdocvar{string\_scope}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Module} \coqdef{VerifiedJsonRef.Token.Token}{Token}{\coqdocmodule{Token}}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Fixpoint} \coqdef{VerifiedJsonRef.Token.Token.escapeToken}{escapeToken}{\coqdocdefinition{escapeToken}} (\coqdef{VerifiedJsonRef.Token.s:1}{s}{\coqdocbinder{s}} : \coqdocinductive{string}) : \coqdocinductive{string} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{match} \coqref{VerifiedJsonRef.Token.s:1}{\coqdocvariable{s}} \coqdockw{with}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocconstructor{EmptyString} \ensuremath{\Rightarrow} \coqdocconstructor{EmptyString}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocconstructor{String} \coqdocvar{c} \coqdocvar{rest} \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{4.00em}
+\coqdockw{if} \coqdocdefinition{ascii\_dec} \coqdocvar{c} "\~{}"\%\coqdocvar{char} \coqdockw{then}\coqdoceol
+\coqdocindent{5.00em}
+\coqdocconstructor{String} "\~{}"\%\coqdocvar{char} (\coqdocconstructor{String} "0"\%\coqdocvar{char} (\coqref{VerifiedJsonRef.Token.escapeToken:2}{\coqdocdefinition{escapeToken}} \coqdocvar{rest}))\coqdoceol
+\coqdocindent{4.00em}
+\coqdockw{else} \coqdockw{if} \coqdocdefinition{ascii\_dec} \coqdocvar{c} "/"\%\coqdocvar{char} \coqdockw{then}\coqdoceol
+\coqdocindent{5.00em}
+\coqdocconstructor{String} "\~{}"\%\coqdocvar{char} (\coqdocconstructor{String} "1"\%\coqdocvar{char} (\coqref{VerifiedJsonRef.Token.escapeToken:2}{\coqdocdefinition{escapeToken}} \coqdocvar{rest}))\coqdoceol
+\coqdocindent{4.00em}
+\coqdockw{else}\coqdoceol
+\coqdocindent{5.00em}
+\coqdocconstructor{String} \coqdocvar{c} (\coqref{VerifiedJsonRef.Token.escapeToken:2}{\coqdocdefinition{escapeToken}} \coqdocvar{rest})\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Fixpoint} \coqdef{VerifiedJsonRef.Token.Token.unescapeToken}{unescapeToken}{\coqdocdefinition{unescapeToken}} (\coqdef{VerifiedJsonRef.Token.s:4}{s}{\coqdocbinder{s}} : \coqdocinductive{string}) : \coqref{VerifiedJsonRef.Types.Types.Result}{\coqdocinductive{Result}} \coqdocinductive{string} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{match} \coqref{VerifiedJsonRef.Token.s:4}{\coqdocvariable{s}} \coqdockw{with}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocconstructor{EmptyString} \ensuremath{\Rightarrow} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} \coqdocconstructor{EmptyString}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocconstructor{String} \coqdocvar{c} \coqdocvar{rest} \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{4.00em}
+\coqdockw{if} \coqdocdefinition{ascii\_dec} \coqdocvar{c} "\~{}"\%\coqdocvar{char} \coqdockw{then}\coqdoceol
+\coqdocindent{5.00em}
+\coqdockw{match} \coqdocvar{rest} \coqdockw{with}\coqdoceol
+\coqdocindent{5.00em}
+\ensuremath{|} \coqdocconstructor{EmptyString} \ensuremath{\Rightarrow} \coqref{VerifiedJsonRef.Types.Types.Err}{\coqdocconstructor{Err}} \coqref{VerifiedJsonRef.Types.Types.InvalidPointer}{\coqdocconstructor{InvalidPointer}}\coqdoceol
+\coqdocindent{5.00em}
+\ensuremath{|} \coqdocconstructor{String} \coqdocvar{d} \coqdocvar{rest'} \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{7.00em}
+\coqdockw{if} \coqdocdefinition{ascii\_dec} \coqdocvar{d} "0"\%\coqdocvar{char} \coqdockw{then}\coqdoceol
+\coqdocindent{8.00em}
+\coqdockw{match} \coqref{VerifiedJsonRef.Token.unescapeToken:5}{\coqdocdefinition{unescapeToken}} \coqdocvar{rest'} \coqdockw{with}\coqdoceol
+\coqdocindent{8.00em}
+\ensuremath{|} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} \coqdocvar{out} \ensuremath{\Rightarrow} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} (\coqdocconstructor{String} "\~{}"\%\coqdocvar{char} \coqdocvar{out})\coqdoceol
+\coqdocindent{8.00em}
+\ensuremath{|} \coqref{VerifiedJsonRef.Types.Types.Err}{\coqdocconstructor{Err}} \coqdocvar{e} \ensuremath{\Rightarrow} \coqref{VerifiedJsonRef.Types.Types.Err}{\coqdocconstructor{Err}} \coqdocvar{e}\coqdoceol
+\coqdocindent{8.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{7.00em}
+\coqdockw{else} \coqdockw{if} \coqdocdefinition{ascii\_dec} \coqdocvar{d} "1"\%\coqdocvar{char} \coqdockw{then}\coqdoceol
+\coqdocindent{8.00em}
+\coqdockw{match} \coqref{VerifiedJsonRef.Token.unescapeToken:5}{\coqdocdefinition{unescapeToken}} \coqdocvar{rest'} \coqdockw{with}\coqdoceol
+\coqdocindent{8.00em}
+\ensuremath{|} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} \coqdocvar{out} \ensuremath{\Rightarrow} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} (\coqdocconstructor{String} "/"\%\coqdocvar{char} \coqdocvar{out})\coqdoceol
+\coqdocindent{8.00em}
+\ensuremath{|} \coqref{VerifiedJsonRef.Types.Types.Err}{\coqdocconstructor{Err}} \coqdocvar{e} \ensuremath{\Rightarrow} \coqref{VerifiedJsonRef.Types.Types.Err}{\coqdocconstructor{Err}} \coqdocvar{e}\coqdoceol
+\coqdocindent{8.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{7.00em}
+\coqdockw{else} \coqref{VerifiedJsonRef.Types.Types.Err}{\coqdocconstructor{Err}} \coqref{VerifiedJsonRef.Types.Types.InvalidPointer}{\coqdocconstructor{InvalidPointer}}\coqdoceol
+\coqdocindent{5.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{4.00em}
+\coqdockw{else}\coqdoceol
+\coqdocindent{5.00em}
+\coqdockw{match} \coqref{VerifiedJsonRef.Token.unescapeToken:5}{\coqdocdefinition{unescapeToken}} \coqdocvar{rest} \coqdockw{with}\coqdoceol
+\coqdocindent{5.00em}
+\ensuremath{|} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} \coqdocvar{out} \ensuremath{\Rightarrow} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} (\coqdocconstructor{String} \coqdocvar{c} \coqdocvar{out})\coqdoceol
+\coqdocindent{5.00em}
+\ensuremath{|} \coqref{VerifiedJsonRef.Types.Types.Err}{\coqdocconstructor{Err}} \coqdocvar{e} \ensuremath{\Rightarrow} \coqref{VerifiedJsonRef.Types.Types.Err}{\coqdocconstructor{Err}} \coqdocvar{e}\coqdoceol
+\coqdocindent{5.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{End} \coqref{VerifiedJsonRef.Token.Token}{\coqdocmodule{Token}}.\coqdoceol
+\end{coqdoccode}
+\coqlibrary{VerifiedJsonRef.TokenLemmas}{Library }{VerifiedJsonRef.TokenLemmas}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{From} \coqdocvar{Stdlib} \coqdockw{Require} \coqdockw{Import} \coqdoclibrary{String} \coqdoclibrary{Ascii}.\coqdoceol
+\coqdocnoindent
+\coqdockw{From} \coqdocvar{VerifiedJsonRef} \coqdockw{Require} \coqdockw{Import} \coqref{VerifiedJsonRef.Types}{\coqdoclibrary{Types}} \coqref{VerifiedJsonRef.Token}{\coqdoclibrary{Token}}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Import} \coqref{VerifiedJsonRef.Types.Types}{\coqdocmodule{Types}}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Open} \coqdockw{Scope} \coqdocvar{string\_scope}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Module} \coqdef{VerifiedJsonRef.TokenLemmas.TokenLemmas}{TokenLemmas}{\coqdocmodule{TokenLemmas}}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Import} \coqref{VerifiedJsonRef.Token.Token}{\coqdocmodule{Token}}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Theorem} \coqdef{VerifiedJsonRef.TokenLemmas.TokenLemmas.unescape escape roundtrip}{unescape\_escape\_roundtrip}{\coqdoclemma{unescape\_escape\_roundtrip}} :\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{\ensuremath{\forall}} \coqdef{VerifiedJsonRef.TokenLemmas.s:1}{s}{\coqdocbinder{s}}, \coqref{VerifiedJsonRef.Token.Token.unescapeToken}{\coqdocdefinition{unescapeToken}} (\coqref{VerifiedJsonRef.Token.Token.escapeToken}{\coqdocdefinition{escapeToken}} \coqref{VerifiedJsonRef.TokenLemmas.s:1}{\coqdocvariable{s}}) \coqexternalref{::type scope:x '=' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{=}} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} \coqref{VerifiedJsonRef.TokenLemmas.s:1}{\coqdocvariable{s}}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Proof}.\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{induction} \coqdocvar{s} \coqdockw{as} [|\coqdocvar{c} \coqdocvar{rest} \coqdocvar{IH}]; \coqdoctac{simpl}.\coqdoceol
+\coqdocindent{2.00em}
+- \coqdoctac{reflexivity}.\coqdoceol
+\coqdocindent{2.00em}
+- \coqdoctac{destruct} (\coqdocdefinition{ascii\_dec} \coqdocvar{c} "\~{}"\%\coqdocvar{char}) \coqdockw{as} [\coqdocvar{Htilde}\ensuremath{|}\coqdocvar{Htilde}]; \coqdoctac{simpl}.\coqdoceol
+\coqdocindent{3.00em}
++ \coqdoctac{subst} \coqdocvar{c}.\coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{destruct} (\coqdocdefinition{ascii\_dec} "\~{}"\%\coqdocvar{char} "\~{}"\%\coqdocvar{char}) \coqdockw{as} [\coqdocvar{\_}\ensuremath{|}\coqdocvar{H}]; [|\coqdocvar{contradiction}].\coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{destruct} (\coqdocdefinition{ascii\_dec} "0"\%\coqdocvar{char} "0"\%\coqdocvar{char}) \coqdockw{as} [\coqdocvar{\_}\ensuremath{|}\coqdocvar{H0}]; [|\coqdocvar{contradiction}].\coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{4.00em}
+\coqdocvar{now} \coqdoctac{rewrite} \coqdocvar{IH}.\coqdoceol
+\coqdocindent{3.00em}
++ \coqdoctac{destruct} (\coqdocdefinition{ascii\_dec} \coqdocvar{c} "/"\%\coqdocvar{char}) \coqdockw{as} [\coqdocvar{Hslash}\ensuremath{|}\coqdocvar{Hslash}]; \coqdoctac{simpl}.\coqdoceol
+\coqdocindent{4.00em}
+\ensuremath{\times} \coqdoctac{subst} \coqdocvar{c}.\coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{destruct} (\coqdocdefinition{ascii\_dec} "/"\%\coqdocvar{char} "\~{}"\%\coqdocvar{char}) \coqdockw{as} [\coqdocvar{H}\ensuremath{|}\coqdocvar{\_}].\coqdoceol
+\coqdocindent{5.00em}
+\{ \coqdoctac{discriminate}. \}\coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{destruct} (\coqdocdefinition{ascii\_dec} "\~{}"\%\coqdocvar{char} "\~{}"\%\coqdocvar{char}) \coqdockw{as} [\coqdocvar{\_}\ensuremath{|}\coqdocvar{H}]; [|\coqdocvar{contradiction}].\coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{destruct} (\coqdocdefinition{ascii\_dec} "1"\%\coqdocvar{char} "0"\%\coqdocvar{char}) \coqdockw{as} [\coqdocvar{H10}\ensuremath{|}\coqdocvar{\_}].\coqdoceol
+\coqdocindent{5.00em}
+\{ \coqdoctac{discriminate}. \}\coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{destruct} (\coqdocdefinition{ascii\_dec} "1"\%\coqdocvar{char} "1"\%\coqdocvar{char}) \coqdockw{as} [\coqdocvar{\_}\ensuremath{|}\coqdocvar{H11}]; [|\coqdocvar{contradiction}].\coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{5.00em}
+\coqdocvar{now} \coqdoctac{rewrite} \coqdocvar{IH}.\coqdoceol
+\coqdocindent{4.00em}
+\ensuremath{\times} \coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{destruct} (\coqdocdefinition{ascii\_dec} \coqdocvar{c} "\~{}"\%\coqdocvar{char}) \coqdockw{as} [\coqdocvar{H}\ensuremath{|}\coqdocvar{\_}].\coqdoceol
+\coqdocindent{5.00em}
+\{ \coqdocvar{contradiction}. \}\coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{5.00em}
+\coqdocvar{now} \coqdoctac{rewrite} \coqdocvar{IH}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Qed}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{End} \coqref{VerifiedJsonRef.TokenLemmas.TokenLemmas}{\coqdocmodule{TokenLemmas}}.\coqdoceol
+\end{coqdoccode}
+\coqlibrary{VerifiedJsonRef.Pointer}{Library }{VerifiedJsonRef.Pointer}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{From} \coqdocvar{Stdlib} \coqdockw{Require} \coqdockw{Import} \coqdoclibrary{String} \coqdoclibrary{Ascii} \coqdoclibrary{List}.\coqdoceol
+\coqdocnoindent
+\coqdockw{From} \coqdocvar{VerifiedJsonRef} \coqdockw{Require} \coqdockw{Import} \coqref{VerifiedJsonRef.Types}{\coqdoclibrary{Types}} \coqref{VerifiedJsonRef.Token}{\coqdoclibrary{Token}}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Import} \coqref{VerifiedJsonRef.Types.Types}{\coqdocmodule{Types}}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Import} \coqdocmodule{ListNotations}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Open} \coqdockw{Scope} \coqdocvar{string\_scope}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Module} \coqdef{VerifiedJsonRef.Pointer.Pointer}{Pointer}{\coqdocmodule{Pointer}}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Definition} \coqdef{VerifiedJsonRef.Pointer.Pointer.Pointer}{Pointer}{\coqdocdefinition{Pointer}} := \coqexternalref{list}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocinductive{list}} \coqdocinductive{string}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Definition} \coqdef{VerifiedJsonRef.Pointer.Pointer.starts with slash}{starts\_with\_slash}{\coqdocdefinition{starts\_with\_slash}} (\coqdef{VerifiedJsonRef.Pointer.s:1}{s}{\coqdocbinder{s}} : \coqdocinductive{string}) : \coqexternalref{bool}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocinductive{bool}} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{match} \coqref{VerifiedJsonRef.Pointer.s:1}{\coqdocvariable{s}} \coqdockw{with}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocconstructor{EmptyString} \ensuremath{\Rightarrow} \coqexternalref{false}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocconstructor{false}}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocconstructor{String} \coqdocvar{c} \coqdocvar{\_} \ensuremath{\Rightarrow} \coqdockw{if} \coqdocdefinition{ascii\_dec} \coqdocvar{c} "/"\%\coqdocvar{char} \coqdockw{then} \coqexternalref{true}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocconstructor{true}} \coqdockw{else} \coqexternalref{false}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocconstructor{false}}\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Definition} \coqdef{VerifiedJsonRef.Pointer.Pointer.drop1}{drop1}{\coqdocdefinition{drop1}} (\coqdef{VerifiedJsonRef.Pointer.s:3}{s}{\coqdocbinder{s}} : \coqdocinductive{string}) : \coqdocinductive{string} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{match} \coqref{VerifiedJsonRef.Pointer.s:3}{\coqdocvariable{s}} \coqdockw{with}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocconstructor{EmptyString} \ensuremath{\Rightarrow} \coqdocconstructor{EmptyString}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocconstructor{String} \coqdocvar{\_} \coqdocvar{rest} \ensuremath{\Rightarrow} \coqdocvar{rest}\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Fixpoint} \coqdef{VerifiedJsonRef.Pointer.Pointer.scan segments}{scan\_segments}{\coqdocdefinition{scan\_segments}} (\coqdef{VerifiedJsonRef.Pointer.s:5}{s}{\coqdocbinder{s}} : \coqdocinductive{string}) (\coqdef{VerifiedJsonRef.Pointer.cur:6}{cur}{\coqdocbinder{cur}} : \coqdocinductive{string}) : \coqexternalref{list}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocinductive{list}} \coqdocinductive{string} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{match} \coqref{VerifiedJsonRef.Pointer.s:5}{\coqdocvariable{s}} \coqdockw{with}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocconstructor{EmptyString} \ensuremath{\Rightarrow} \coqdocnotation{[}\coqref{VerifiedJsonRef.Pointer.cur:6}{\coqdocvariable{cur}}\coqdocnotation{]}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocconstructor{String} \coqdocvar{c} \coqdocvar{rest} \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{4.00em}
+\coqdockw{if} \coqdocdefinition{ascii\_dec} \coqdocvar{c} "/"\%\coqdocvar{char} \coqdockw{then}\coqdoceol
+\coqdocindent{5.00em}
+\coqref{VerifiedJsonRef.Pointer.cur:6}{\coqdocvariable{cur}} \coqexternalref{::list scope:x '::' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocnotation{::}} \coqref{VerifiedJsonRef.Pointer.scan segments:7}{\coqdocdefinition{scan\_segments}} \coqdocvar{rest} \coqdocconstructor{EmptyString}\coqdoceol
+\coqdocindent{4.00em}
+\coqdockw{else}\coqdoceol
+\coqdocindent{5.00em}
+\coqref{VerifiedJsonRef.Pointer.scan segments:7}{\coqdocdefinition{scan\_segments}} \coqdocvar{rest} (\coqref{VerifiedJsonRef.Pointer.cur:6}{\coqdocvariable{cur}} \coqdocnotation{++} \coqdocconstructor{String} \coqdocvar{c} \coqdocconstructor{EmptyString})\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Fixpoint} \coqdef{VerifiedJsonRef.Pointer.Pointer.mapM unescape}{mapM\_unescape}{\coqdocdefinition{mapM\_unescape}} (\coqdef{VerifiedJsonRef.Pointer.segs:9}{segs}{\coqdocbinder{segs}} : \coqexternalref{list}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocinductive{list}} \coqdocinductive{string}) : \coqref{VerifiedJsonRef.Types.Types.Result}{\coqdocinductive{Result}} (\coqexternalref{list}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocinductive{list}} \coqdocinductive{string}) :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{match} \coqref{VerifiedJsonRef.Pointer.segs:9}{\coqdocvariable{segs}} \coqdockw{with}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocnotation{[]} \ensuremath{\Rightarrow} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} \coqdocnotation{[]}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocvar{seg} \coqexternalref{::list scope:x '::' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocnotation{::}} \coqdocvar{rest} \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{4.00em}
+\coqdockw{match} \coqref{VerifiedJsonRef.Token.Token.unescapeToken}{\coqdocdefinition{Token.unescapeToken}} \coqdocvar{seg} \coqdockw{with}\coqdoceol
+\coqdocindent{4.00em}
+\ensuremath{|} \coqref{VerifiedJsonRef.Types.Types.Err}{\coqdocconstructor{Err}} \coqdocvar{e} \ensuremath{\Rightarrow} \coqref{VerifiedJsonRef.Types.Types.Err}{\coqdocconstructor{Err}} \coqdocvar{e}\coqdoceol
+\coqdocindent{4.00em}
+\ensuremath{|} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} \coqdocvar{t} \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{6.00em}
+\coqdockw{match} \coqref{VerifiedJsonRef.Pointer.mapM unescape:10}{\coqdocdefinition{mapM\_unescape}} \coqdocvar{rest} \coqdockw{with}\coqdoceol
+\coqdocindent{6.00em}
+\ensuremath{|} \coqref{VerifiedJsonRef.Types.Types.Err}{\coqdocconstructor{Err}} \coqdocvar{e} \ensuremath{\Rightarrow} \coqref{VerifiedJsonRef.Types.Types.Err}{\coqdocconstructor{Err}} \coqdocvar{e}\coqdoceol
+\coqdocindent{6.00em}
+\ensuremath{|} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} \coqdocvar{ts} \ensuremath{\Rightarrow} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} (\coqdocvar{t} \coqexternalref{::list scope:x '::' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocnotation{::}} \coqdocvar{ts})\coqdoceol
+\coqdocindent{6.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{4.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Definition} \coqdef{VerifiedJsonRef.Pointer.Pointer.parsePointer}{parsePointer}{\coqdocdefinition{parsePointer}} (\coqdef{VerifiedJsonRef.Pointer.ps:12}{ps}{\coqdocbinder{ps}} : \coqdocinductive{string}) : \coqref{VerifiedJsonRef.Types.Types.Result}{\coqdocinductive{Result}} \coqref{VerifiedJsonRef.Pointer.Pointer.Pointer}{\coqdocdefinition{Pointer}} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{if} \coqdocdefinition{string\_dec} \coqref{VerifiedJsonRef.Pointer.ps:12}{\coqdocvariable{ps}} \coqdocconstructor{EmptyString} \coqdockw{then} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} \coqdocnotation{[]}\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{else} \coqdockw{if} \coqref{VerifiedJsonRef.Pointer.Pointer.starts with slash}{\coqdocdefinition{starts\_with\_slash}} \coqref{VerifiedJsonRef.Pointer.ps:12}{\coqdocvariable{ps}} \coqdockw{then}\coqdoceol
+\coqdocindent{3.00em}
+\coqref{VerifiedJsonRef.Pointer.Pointer.mapM unescape}{\coqdocdefinition{mapM\_unescape}} (\coqref{VerifiedJsonRef.Pointer.Pointer.scan segments}{\coqdocdefinition{scan\_segments}} (\coqref{VerifiedJsonRef.Pointer.Pointer.drop1}{\coqdocdefinition{drop1}} \coqref{VerifiedJsonRef.Pointer.ps:12}{\coqdocvariable{ps}}) \coqdocconstructor{EmptyString})\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{else} \coqref{VerifiedJsonRef.Types.Types.Err}{\coqdocconstructor{Err}} \coqref{VerifiedJsonRef.Types.Types.InvalidPointer}{\coqdocconstructor{InvalidPointer}}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Fixpoint} \coqdef{VerifiedJsonRef.Pointer.Pointer.formatTail}{formatTail}{\coqdocdefinition{formatTail}} (\coqdef{VerifiedJsonRef.Pointer.p:13}{p}{\coqdocbinder{p}} : \coqref{VerifiedJsonRef.Pointer.Pointer.Pointer}{\coqdocdefinition{Pointer}}) : \coqdocinductive{string} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{match} \coqref{VerifiedJsonRef.Pointer.p:13}{\coqdocvariable{p}} \coqdockw{with}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocnotation{[]} \ensuremath{\Rightarrow} \coqdocconstructor{EmptyString}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocvar{t} \coqexternalref{::list scope:x '::' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocnotation{::}} \coqdocvar{ts} \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{4.00em}
+\coqdocnotation{(}\coqdocconstructor{String} "/"\%\coqdocvar{char} \coqdocconstructor{EmptyString}\coqdocnotation{)} \coqdocnotation{++} \coqdocnotation{(}\coqref{VerifiedJsonRef.Token.Token.escapeToken}{\coqdocdefinition{Token.escapeToken}} \coqdocvar{t}\coqdocnotation{)} \coqdocnotation{++} \coqdocnotation{(}\coqref{VerifiedJsonRef.Pointer.formatTail:14}{\coqdocdefinition{formatTail}} \coqdocvar{ts}\coqdocnotation{)}\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Definition} \coqdef{VerifiedJsonRef.Pointer.Pointer.formatPointer}{formatPointer}{\coqdocdefinition{formatPointer}} (\coqdef{VerifiedJsonRef.Pointer.p:16}{p}{\coqdocbinder{p}} : \coqref{VerifiedJsonRef.Pointer.Pointer.Pointer}{\coqdocdefinition{Pointer}}) : \coqdocinductive{string} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{match} \coqref{VerifiedJsonRef.Pointer.p:16}{\coqdocvariable{p}} \coqdockw{with}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocnotation{[]} \ensuremath{\Rightarrow} \coqdocconstructor{EmptyString}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|} \coqdocvar{t} \coqexternalref{::list scope:x '::' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocnotation{::}} \coqdocvar{ts} \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{4.00em}
+\coqdocnotation{(}\coqdocconstructor{String} "/"\%\coqdocvar{char} \coqdocconstructor{EmptyString}\coqdocnotation{)} \coqdocnotation{++} \coqdocnotation{(}\coqref{VerifiedJsonRef.Token.Token.escapeToken}{\coqdocdefinition{Token.escapeToken}} \coqdocvar{t}\coqdocnotation{)} \coqdocnotation{++} \coqdocnotation{(}\coqref{VerifiedJsonRef.Pointer.Pointer.formatTail}{\coqdocdefinition{formatTail}} \coqdocvar{ts}\coqdocnotation{)}\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{End} \coqref{VerifiedJsonRef.Pointer.Pointer}{\coqdocmodule{Pointer}}.\coqdoceol
+\end{coqdoccode}
+\coqlibrary{VerifiedJsonRef.PointerLemmas}{Library }{VerifiedJsonRef.PointerLemmas}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{From} \coqdocvar{Stdlib} \coqdockw{Require} \coqdockw{Import} \coqdoclibrary{String} \coqdoclibrary{Ascii} \coqdoclibrary{List}.\coqdoceol
+\coqdocnoindent
+\coqdockw{From} \coqdocvar{VerifiedJsonRef} \coqdockw{Require} \coqdockw{Import} \coqref{VerifiedJsonRef.Types}{\coqdoclibrary{Types}} \coqref{VerifiedJsonRef.Token}{\coqdoclibrary{Token}} \coqref{VerifiedJsonRef.TokenLemmas}{\coqdoclibrary{TokenLemmas}} \coqref{VerifiedJsonRef.Pointer}{\coqdoclibrary{Pointer}}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Import} \coqref{VerifiedJsonRef.Types.Types}{\coqdocmodule{Types}}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Import} \coqdocmodule{ListNotations}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Open} \coqdockw{Scope} \coqdocvar{string\_scope}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma} \coqdef{VerifiedJsonRef.PointerLemmas.append empty r}{append\_empty\_r}{\coqdoclemma{append\_empty\_r}} : \coqdockw{\ensuremath{\forall}} \coqdef{VerifiedJsonRef.PointerLemmas.s:1}{s}{\coqdocbinder{s}} : \coqdocinductive{string}, \coqref{VerifiedJsonRef.PointerLemmas.s:1}{\coqdocvariable{s}} \coqdocnotation{++} \coqdocconstructor{EmptyString} \coqexternalref{::type scope:x '=' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{=}} \coqref{VerifiedJsonRef.PointerLemmas.s:1}{\coqdocvariable{s}}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Proof}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdoctac{intro} \coqdocvar{s}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdoctac{induction} \coqdocvar{s} \coqdockw{as} [|\coqdocvar{c} \coqdocvar{rest} \coqdocvar{IH}]; \coqdoctac{simpl}.\coqdoceol
+\coqdocindent{1.00em}
+- \coqdoctac{reflexivity}.\coqdoceol
+\coqdocindent{1.00em}
+- \coqdocvar{now} \coqdoctac{rewrite} \coqdocvar{IH}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Qed}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma} \coqdef{VerifiedJsonRef.PointerLemmas.append empty l}{append\_empty\_l}{\coqdoclemma{append\_empty\_l}} : \coqdockw{\ensuremath{\forall}} \coqdef{VerifiedJsonRef.PointerLemmas.s:2}{s}{\coqdocbinder{s}} : \coqdocinductive{string}, \coqdocconstructor{EmptyString} \coqdocnotation{++} \coqref{VerifiedJsonRef.PointerLemmas.s:2}{\coqdocvariable{s}} \coqexternalref{::type scope:x '=' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{=}} \coqref{VerifiedJsonRef.PointerLemmas.s:2}{\coqdocvariable{s}}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Proof}. \coqdoctac{intro} \coqdocvar{s}; \coqdoctac{reflexivity}. \coqdockw{Qed}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma} \coqdef{VerifiedJsonRef.PointerLemmas.append assoc}{append\_assoc}{\coqdoclemma{append\_assoc}} : \coqdockw{\ensuremath{\forall}} \coqdef{VerifiedJsonRef.PointerLemmas.a:3}{a}{\coqdocbinder{a}} \coqdef{VerifiedJsonRef.PointerLemmas.b:4}{b}{\coqdocbinder{b}} \coqdef{VerifiedJsonRef.PointerLemmas.c:5}{c}{\coqdocbinder{c}} : \coqdocinductive{string}, \coqdocnotation{(}\coqref{VerifiedJsonRef.PointerLemmas.a:3}{\coqdocvariable{a}} \coqdocnotation{++} \coqref{VerifiedJsonRef.PointerLemmas.b:4}{\coqdocvariable{b}}\coqdocnotation{)} \coqdocnotation{++} \coqref{VerifiedJsonRef.PointerLemmas.c:5}{\coqdocvariable{c}} \coqexternalref{::type scope:x '=' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{=}} \coqref{VerifiedJsonRef.PointerLemmas.a:3}{\coqdocvariable{a}} \coqdocnotation{++} \coqdocnotation{(}\coqref{VerifiedJsonRef.PointerLemmas.b:4}{\coqdocvariable{b}} \coqdocnotation{++} \coqref{VerifiedJsonRef.PointerLemmas.c:5}{\coqdocvariable{c}}\coqdocnotation{)}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Proof}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdoctac{intro} \coqdocvar{a}; \coqdoctac{induction} \coqdocvar{a} \coqdockw{as} [|\coqdocvar{x} \coqdocvar{a} \coqdocvar{IH}]; \coqdoctac{intros} \coqdocvar{b} \coqdocvar{c}; \coqdoctac{simpl}.\coqdoceol
+\coqdocindent{1.00em}
+- \coqdoctac{reflexivity}.\coqdoceol
+\coqdocindent{1.00em}
+- \coqdocvar{now} \coqdoctac{rewrite} \coqdocvar{IH}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Qed}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma} \coqdef{VerifiedJsonRef.PointerLemmas.cons empty append}{cons\_empty\_append}{\coqdoclemma{cons\_empty\_append}} : \coqdockw{\ensuremath{\forall}} (\coqdef{VerifiedJsonRef.PointerLemmas.c:6}{c}{\coqdocbinder{c}} : \coqdocinductive{ascii}) (\coqdef{VerifiedJsonRef.PointerLemmas.s:7}{s}{\coqdocbinder{s}} : \coqdocinductive{string}),\coqdoceol
+\coqdocindent{1.00em}
+\coqdocnotation{(}\coqdocconstructor{String} \coqref{VerifiedJsonRef.PointerLemmas.c:6}{\coqdocvariable{c}} \coqdocconstructor{EmptyString}\coqdocnotation{)} \coqdocnotation{++} \coqref{VerifiedJsonRef.PointerLemmas.s:7}{\coqdocvariable{s}} \coqexternalref{::type scope:x '=' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{=}} \coqdocconstructor{String} \coqref{VerifiedJsonRef.PointerLemmas.c:6}{\coqdocvariable{c}} \coqref{VerifiedJsonRef.PointerLemmas.s:7}{\coqdocvariable{s}}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Proof}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdoctac{intros} \coqdocvar{c} \coqdocvar{s}. \coqdoctac{simpl}. \coqdoctac{reflexivity}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Qed}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Module} \coqdef{VerifiedJsonRef.PointerLemmas.PointerLemmas}{PointerLemmas}{\coqdocmodule{PointerLemmas}}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Import} \coqref{VerifiedJsonRef.Token.Token}{\coqdocmodule{Token}}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Import} \coqref{VerifiedJsonRef.Pointer.Pointer}{\coqdocmodule{Pointer}}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Import} \coqref{VerifiedJsonRef.TokenLemmas.TokenLemmas}{\coqdocmodule{TokenLemmas}}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Lemma} \coqdef{VerifiedJsonRef.PointerLemmas.PointerLemmas.mapM unescape escape ok}{mapM\_unescape\_escape\_ok}{\coqdoclemma{mapM\_unescape\_escape\_ok}} :\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{\ensuremath{\forall}} \coqdef{VerifiedJsonRef.PointerLemmas.p:8}{p}{\coqdocbinder{p}}, \coqref{VerifiedJsonRef.Pointer.Pointer.mapM unescape}{\coqdocdefinition{mapM\_unescape}} (\coqexternalref{map}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Lists.ListDef}{\coqdocdefinition{map}} \coqref{VerifiedJsonRef.Token.Token.escapeToken}{\coqdocdefinition{escapeToken}} \coqref{VerifiedJsonRef.PointerLemmas.p:8}{\coqdocvariable{p}}) \coqexternalref{::type scope:x '=' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{=}} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} \coqref{VerifiedJsonRef.PointerLemmas.p:8}{\coqdocvariable{p}}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Proof}.\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{induction} \coqdocvar{p} \coqdockw{as} [|\coqdocvar{t} \coqdocvar{rest} \coqdocvar{IH}]; \coqdoctac{simpl}.\coqdoceol
+\coqdocindent{2.00em}
+- \coqdoctac{reflexivity}.\coqdoceol
+\coqdocindent{2.00em}
+- \coqdoctac{rewrite} \coqref{VerifiedJsonRef.TokenLemmas.TokenLemmas.unescape escape roundtrip}{\coqdoclemma{unescape\_escape\_roundtrip}}.\coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{3.00em}
+\coqdocvar{now} \coqdoctac{rewrite} \coqdocvar{IH}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Qed}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Lemma} \coqdef{VerifiedJsonRef.PointerLemmas.PointerLemmas.scan segments empty}{scan\_segments\_empty}{\coqdoclemma{scan\_segments\_empty}} :\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{\ensuremath{\forall}} \coqdef{VerifiedJsonRef.PointerLemmas.cur:9}{cur}{\coqdocbinder{cur}}, \coqref{VerifiedJsonRef.Pointer.Pointer.scan segments}{\coqdocdefinition{scan\_segments}} \coqdocconstructor{EmptyString} \coqref{VerifiedJsonRef.PointerLemmas.cur:9}{\coqdocvariable{cur}} \coqexternalref{::type scope:x '=' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{=}} \coqdocnotation{[}\coqref{VerifiedJsonRef.PointerLemmas.cur:9}{\coqdocvariable{cur}}\coqdocnotation{]}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Proof}. \coqdoctac{intro} \coqdocvar{cur}; \coqdoctac{simpl}; \coqdoctac{reflexivity}. \coqdockw{Qed}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Inductive} \coqdef{VerifiedJsonRef.PointerLemmas.PointerLemmas.NoSlash}{NoSlash}{\coqdocinductive{NoSlash}} : \coqdocinductive{string} \coqexternalref{::type scope:x '->' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{\ensuremath{\rightarrow}}} \coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{VerifiedJsonRef.PointerLemmas.PointerLemmas.NS Empty}{NS\_Empty}{\coqdocconstructor{NS\_Empty}} : \coqref{VerifiedJsonRef.PointerLemmas.NoSlash:10}{\coqdocinductive{NoSlash}} \coqdocconstructor{EmptyString}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{VerifiedJsonRef.PointerLemmas.PointerLemmas.NS Cons}{NS\_Cons}{\coqdocconstructor{NS\_Cons}}  : \coqdockw{\ensuremath{\forall}} \coqdef{VerifiedJsonRef.PointerLemmas.c:12}{c}{\coqdocbinder{c}} \coqdef{VerifiedJsonRef.PointerLemmas.rest:13}{rest}{\coqdocbinder{rest}},\coqdoceol
+\coqdocindent{3.00em}
+\coqref{VerifiedJsonRef.PointerLemmas.c:12}{\coqdocvariable{c}} \coqexternalref{::type scope:x '<>' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{\ensuremath{\not=}}} "/"\%\coqdocvar{char} \coqexternalref{::type scope:x '->' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{\ensuremath{\rightarrow}}}\coqdoceol
+\coqdocindent{3.00em}
+\coqref{VerifiedJsonRef.PointerLemmas.NoSlash:10}{\coqdocinductive{NoSlash}} \coqref{VerifiedJsonRef.PointerLemmas.rest:13}{\coqdocvariable{rest}} \coqexternalref{::type scope:x '->' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{\ensuremath{\rightarrow}}}\coqdoceol
+\coqdocindent{3.00em}
+\coqref{VerifiedJsonRef.PointerLemmas.NoSlash:10}{\coqdocinductive{NoSlash}} (\coqdocconstructor{String} \coqref{VerifiedJsonRef.PointerLemmas.c:12}{\coqdocvariable{c}} \coqref{VerifiedJsonRef.PointerLemmas.rest:13}{\coqdocvariable{rest}}).\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Lemma} \coqdef{VerifiedJsonRef.PointerLemmas.PointerLemmas.noslash escapeToken}{noslash\_escapeToken}{\coqdoclemma{noslash\_escapeToken}} :\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{\ensuremath{\forall}} \coqdef{VerifiedJsonRef.PointerLemmas.s:14}{s}{\coqdocbinder{s}}, \coqref{VerifiedJsonRef.PointerLemmas.PointerLemmas.NoSlash}{\coqdocinductive{NoSlash}} (\coqref{VerifiedJsonRef.Token.Token.escapeToken}{\coqdocdefinition{escapeToken}} \coqref{VerifiedJsonRef.PointerLemmas.s:14}{\coqdocvariable{s}}).\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Proof}.\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{induction} \coqdocvar{s} \coqdockw{as} [|\coqdocvar{c} \coqdocvar{rest} \coqdocvar{IH}]; \coqdoctac{simpl}.\coqdoceol
+\coqdocindent{2.00em}
+- \coqdoctac{constructor}.\coqdoceol
+\coqdocindent{2.00em}
+- \coqdoctac{destruct} (\coqdocdefinition{ascii\_dec} \coqdocvar{c} "\~{}"\%\coqdocvar{char}) \coqdockw{as} [\coqdocvar{Htilde}\ensuremath{|}\coqdocvar{Htilde}].\coqdoceol
+\coqdocindent{3.00em}
++ \coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{constructor}.\coqdoceol
+\coqdocindent{4.00em}
+\ensuremath{\times} \coqdoctac{discriminate}.\coqdoceol
+\coqdocindent{4.00em}
+\ensuremath{\times} \coqdoctac{constructor}.\coqdoceol
+\coqdocindent{5.00em}
+\{ \coqdoctac{discriminate}. \}\coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{exact} \coqdocvar{IH}.\coqdoceol
+\coqdocindent{3.00em}
++ \coqdoctac{destruct} (\coqdocdefinition{ascii\_dec} \coqdocvar{c} "/"\%\coqdocvar{char}) \coqdockw{as} [\coqdocvar{Hslash}\ensuremath{|}\coqdocvar{Hslash}].\coqdoceol
+\coqdocindent{4.00em}
+\ensuremath{\times} \coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{constructor}.\coqdoceol
+\coqdocindent{5.00em}
+\{ \coqdoctac{discriminate}. \}\coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{constructor}.\coqdoceol
+\coqdocindent{5.00em}
+\{ \coqdoctac{discriminate}. \}\coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{exact} \coqdocvar{IH}.\coqdoceol
+\coqdocindent{4.00em}
+\ensuremath{\times} \coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{constructor}.\coqdoceol
+\coqdocindent{5.00em}
+\{ \coqdoceol
+\coqdocindent{6.00em}
+\coqdoctac{intro} \coqdocvar{H}; \coqdoctac{apply} \coqdocvar{Hslash}; \coqdoctac{exact} \coqdocvar{H}.\coqdoceol
+\coqdocindent{5.00em}
+\}\coqdoceol
+\coqdocindent{5.00em}
+\coqdoctac{exact} \coqdocvar{IH}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Qed}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Lemma} \coqdef{VerifiedJsonRef.PointerLemmas.PointerLemmas.scan segments append noslash}{scan\_segments\_append\_noslash}{\coqdoclemma{scan\_segments\_append\_noslash}} :\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{\ensuremath{\forall}} \coqdef{VerifiedJsonRef.PointerLemmas.s:15}{s}{\coqdocbinder{s}} \coqdef{VerifiedJsonRef.PointerLemmas.rest:16}{rest}{\coqdocbinder{rest}} \coqdef{VerifiedJsonRef.PointerLemmas.cur:17}{cur}{\coqdocbinder{cur}},\coqdoceol
+\coqdocindent{3.00em}
+\coqref{VerifiedJsonRef.PointerLemmas.PointerLemmas.NoSlash}{\coqdocinductive{NoSlash}} \coqref{VerifiedJsonRef.PointerLemmas.s:15}{\coqdocvariable{s}} \coqexternalref{::type scope:x '->' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{\ensuremath{\rightarrow}}}\coqdoceol
+\coqdocindent{3.00em}
+\coqref{VerifiedJsonRef.Pointer.Pointer.scan segments}{\coqdocdefinition{scan\_segments}} (\coqref{VerifiedJsonRef.PointerLemmas.s:15}{\coqdocvariable{s}} \coqdocnotation{++} \coqref{VerifiedJsonRef.PointerLemmas.rest:16}{\coqdocvariable{rest}}) \coqref{VerifiedJsonRef.PointerLemmas.cur:17}{\coqdocvariable{cur}} \coqexternalref{::type scope:x '=' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{=}} \coqref{VerifiedJsonRef.Pointer.Pointer.scan segments}{\coqdocdefinition{scan\_segments}} \coqref{VerifiedJsonRef.PointerLemmas.rest:16}{\coqdocvariable{rest}} (\coqref{VerifiedJsonRef.PointerLemmas.cur:17}{\coqdocvariable{cur}} \coqdocnotation{++} \coqref{VerifiedJsonRef.PointerLemmas.s:15}{\coqdocvariable{s}}).\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Proof}.\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{induction} \coqdocvar{s} \coqdockw{as} [|\coqdocvar{c} \coqdocvar{s'} \coqdocvar{IH}]; \coqdoctac{intros} \coqdocvar{rest} \coqdocvar{cur} \coqdocvar{Hns}; \coqdoctac{simpl} \coqdoctac{in} *.\coqdoceol
+\coqdocindent{2.00em}
+- \coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{rewrite} \coqref{VerifiedJsonRef.PointerLemmas.append empty r}{\coqdoclemma{append\_empty\_r}}.\coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{reflexivity}.\coqdoceol
+\coqdocindent{2.00em}
+- \coqdoctac{inversion} \coqdocvar{Hns} \coqdockw{as} [|\coqdocvar{c0} \coqdocvar{rest0} \coqdocvar{Hneq} \coqdocvar{Hns'}]; \coqdoctac{subst}.\coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{destruct} (\coqdocdefinition{ascii\_dec} \coqdocvar{c} "/"\%\coqdocvar{char}) \coqdockw{as} [\coqdocvar{Hslash}\ensuremath{|}\coqdocvar{Hslash}].\coqdoceol
+\coqdocindent{3.00em}
++ \coqdocvar{exfalso}; \coqdoctac{apply} \coqdocvar{Hneq}; \coqdoctac{exact} \coqdocvar{Hslash}.\coqdoceol
+\coqdocindent{3.00em}
++ \coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{specialize} (\coqdocvar{IH} \coqdocvar{rest} (\coqdocvar{cur} \coqdocnotation{++} \coqdocconstructor{String} \coqdocvar{c} \coqdocconstructor{EmptyString}) \coqdocvar{Hns'}).\coqdoceol
+\coqdocemptyline
+\coqdocindent{4.00em}
+\coqdoctac{rewrite} (\coqref{VerifiedJsonRef.PointerLemmas.append assoc}{\coqdoclemma{append\_assoc}} \coqdocvar{cur} (\coqdocconstructor{String} \coqdocvar{c} \coqdocconstructor{EmptyString}) \coqdocvar{s'}) \coqdoctac{in} \coqdocvar{IH}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{4.00em}
+\coqdoctac{rewrite} (\coqref{VerifiedJsonRef.PointerLemmas.cons empty append}{\coqdoclemma{cons\_empty\_append}} \coqdocvar{c} \coqdocvar{s'}) \coqdoctac{in} \coqdocvar{IH}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{4.00em}
+\coqdoctac{exact} \coqdocvar{IH}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Qed}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Lemma} \coqdef{VerifiedJsonRef.PointerLemmas.PointerLemmas.scan segments formatTail cur}{scan\_segments\_formatTail\_cur}{\coqdoclemma{scan\_segments\_formatTail\_cur}} :\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{\ensuremath{\forall}} \coqdef{VerifiedJsonRef.PointerLemmas.ts:18}{ts}{\coqdocbinder{ts}} \coqdef{VerifiedJsonRef.PointerLemmas.cur:19}{cur}{\coqdocbinder{cur}},\coqdoceol
+\coqdocindent{3.00em}
+\coqref{VerifiedJsonRef.Pointer.Pointer.scan segments}{\coqdocdefinition{scan\_segments}} (\coqref{VerifiedJsonRef.Pointer.Pointer.formatTail}{\coqdocdefinition{formatTail}} \coqref{VerifiedJsonRef.PointerLemmas.ts:18}{\coqdocvariable{ts}}) \coqref{VerifiedJsonRef.PointerLemmas.cur:19}{\coqdocvariable{cur}} \coqexternalref{::type scope:x '=' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{=}} \coqref{VerifiedJsonRef.PointerLemmas.cur:19}{\coqdocvariable{cur}} \coqexternalref{::list scope:x '::' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocnotation{::}} \coqexternalref{map}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Lists.ListDef}{\coqdocdefinition{map}} \coqref{VerifiedJsonRef.Token.Token.escapeToken}{\coqdocdefinition{escapeToken}} \coqref{VerifiedJsonRef.PointerLemmas.ts:18}{\coqdocvariable{ts}}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Proof}.\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{induction} \coqdocvar{ts} \coqdockw{as} [|\coqdocvar{t} \coqdocvar{rest} \coqdocvar{IH}]; \coqdoctac{intros} \coqdocvar{cur}; \coqdoctac{simpl}.\coqdoceol
+\coqdocindent{2.00em}
+- \coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{reflexivity}.\coqdoceol
+\coqdocindent{2.00em}
+- \coqdoceol
+\coqdocindent{3.00em}
+\coqdoceol
+\coqdocindent{3.00em}
+\coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{destruct} (\coqdocdefinition{ascii\_dec} "/"\%\coqdocvar{char} "/"\%\coqdocvar{char}) \coqdockw{as} [\coqdocvar{\_}\ensuremath{|}\coqdocvar{H}]; [|\coqdocvar{contradiction}].\coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{rewrite} (\coqref{VerifiedJsonRef.PointerLemmas.PointerLemmas.scan segments append noslash}{\coqdoclemma{scan\_segments\_append\_noslash}} (\coqref{VerifiedJsonRef.Token.Token.escapeToken}{\coqdocdefinition{escapeToken}} \coqdocvar{t}) (\coqref{VerifiedJsonRef.Pointer.Pointer.formatTail}{\coqdocdefinition{formatTail}} \coqdocvar{rest}) \coqdocconstructor{EmptyString}).\coqdoceol
+\coqdocindent{3.00em}
+2:\{ \coqdoctac{apply} \coqref{VerifiedJsonRef.PointerLemmas.PointerLemmas.noslash escapeToken}{\coqdoclemma{noslash\_escapeToken}}. \}\coqdoceol
+\coqdocindent{3.00em}
+\coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{specialize} (\coqdocvar{IH} (\coqref{VerifiedJsonRef.Token.Token.escapeToken}{\coqdocdefinition{escapeToken}} \coqdocvar{t})).\coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{rewrite} \coqdocvar{IH}.\coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{reflexivity}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Qed}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Lemma} \coqdef{VerifiedJsonRef.PointerLemmas.PointerLemmas.scan segments drop1 formatPointer nonempty}{scan\_segments\_drop1\_formatPointer\_nonempty}{\coqdoclemma{scan\_segments\_drop1\_formatPointer\_nonempty}} :\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{\ensuremath{\forall}} \coqdef{VerifiedJsonRef.PointerLemmas.t:20}{t}{\coqdocbinder{t}} \coqdef{VerifiedJsonRef.PointerLemmas.ts:21}{ts}{\coqdocbinder{ts}},\coqdoceol
+\coqdocindent{3.00em}
+\coqref{VerifiedJsonRef.Pointer.Pointer.scan segments}{\coqdocdefinition{scan\_segments}} (\coqref{VerifiedJsonRef.Pointer.Pointer.drop1}{\coqdocdefinition{drop1}} (\coqref{VerifiedJsonRef.Pointer.Pointer.formatPointer}{\coqdocdefinition{formatPointer}} (\coqref{VerifiedJsonRef.PointerLemmas.t:20}{\coqdocvariable{t}} \coqexternalref{::list scope:x '::' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocnotation{::}} \coqref{VerifiedJsonRef.PointerLemmas.ts:21}{\coqdocvariable{ts}}))) \coqdocconstructor{EmptyString}\coqdoceol
+\coqdocindent{3.00em}
+\coqexternalref{::type scope:x '=' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{=}} \coqexternalref{map}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Lists.ListDef}{\coqdocdefinition{map}} \coqref{VerifiedJsonRef.Token.Token.escapeToken}{\coqdocdefinition{escapeToken}} (\coqref{VerifiedJsonRef.PointerLemmas.t:20}{\coqdocvariable{t}} \coqexternalref{::list scope:x '::' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocnotation{::}} \coqref{VerifiedJsonRef.PointerLemmas.ts:21}{\coqdocvariable{ts}}).\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Proof}.\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{intros} \coqdocvar{t} \coqdocvar{ts}.\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{unfold} \coqref{VerifiedJsonRef.Pointer.Pointer.formatPointer}{\coqdocdefinition{formatPointer}}.\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{rewrite} (\coqref{VerifiedJsonRef.PointerLemmas.PointerLemmas.scan segments append noslash}{\coqdoclemma{scan\_segments\_append\_noslash}} (\coqref{VerifiedJsonRef.Token.Token.escapeToken}{\coqdocdefinition{escapeToken}} \coqdocvar{t}) (\coqref{VerifiedJsonRef.Pointer.Pointer.formatTail}{\coqdocdefinition{formatTail}} \coqdocvar{ts}) \coqdocconstructor{EmptyString}).\coqdoceol
+\coqdocindent{2.00em}
+2:\{ \coqdoctac{apply} \coqref{VerifiedJsonRef.PointerLemmas.PointerLemmas.noslash escapeToken}{\coqdoclemma{noslash\_escapeToken}}. \}\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{rewrite} (\coqref{VerifiedJsonRef.PointerLemmas.PointerLemmas.scan segments formatTail cur}{\coqdoclemma{scan\_segments\_formatTail\_cur}} \coqdocvar{ts} (\coqref{VerifiedJsonRef.Token.Token.escapeToken}{\coqdocdefinition{escapeToken}} \coqdocvar{t})).\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{reflexivity}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Qed}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{1.00em}
+\coqdockw{Theorem} \coqdef{VerifiedJsonRef.PointerLemmas.PointerLemmas.parse format roundtrip}{parse\_format\_roundtrip}{\coqdoclemma{parse\_format\_roundtrip}} :\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{\ensuremath{\forall}} \coqdef{VerifiedJsonRef.PointerLemmas.p:22}{p}{\coqdocbinder{p}}, \coqref{VerifiedJsonRef.Pointer.Pointer.parsePointer}{\coqdocdefinition{parsePointer}} (\coqref{VerifiedJsonRef.Pointer.Pointer.formatPointer}{\coqdocdefinition{formatPointer}} \coqref{VerifiedJsonRef.PointerLemmas.p:22}{\coqdocvariable{p}}) \coqexternalref{::type scope:x '=' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Logic}{\coqdocnotation{=}} \coqref{VerifiedJsonRef.Types.Types.Ok}{\coqdocconstructor{Ok}} \coqref{VerifiedJsonRef.PointerLemmas.p:22}{\coqdocvariable{p}}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Proof}.\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{intro} \coqdocvar{p}.\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{destruct} \coqdocvar{p} \coqdockw{as} [|\coqdocvar{t} \coqdocvar{ts}].\coqdoceol
+\coqdocindent{2.00em}
+- \coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{unfold} \coqref{VerifiedJsonRef.Pointer.Pointer.parsePointer}{\coqdocdefinition{parsePointer}}.\coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{simpl}.\coqdoceol
+\coqdocindent{3.00em}
+\coqdoctac{destruct} (\coqdocdefinition{string\_dec} \coqdocconstructor{EmptyString} \coqdocconstructor{EmptyString}); \coqdoctac{reflexivity}.\coqdoceol
+\coqdocindent{2.00em}
+- \coqdoceol
+\coqdocindent{2.00em}
+\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{set} (\coqdocvar{ps} := \coqref{VerifiedJsonRef.Pointer.Pointer.formatPointer}{\coqdocdefinition{formatPointer}} (\coqdocvar{t} \coqexternalref{::list scope:x '::' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocnotation{::}} \coqdocvar{ts})).\coqdoceol
+\coqdocemptyline
+\coqdocindent{2.00em}
+\coqdoctac{unfold} \coqref{VerifiedJsonRef.Pointer.Pointer.parsePointer}{\coqdocdefinition{parsePointer}}.\coqdoceol
+\coqdocindent{2.00em}
+\coqdoctac{fold} \coqdocvar{ps}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{2.00em}
+\coqdoctac{destruct} (\coqdocdefinition{string\_dec} \coqdocvar{ps} \coqdocconstructor{EmptyString}) \coqdockw{as} [\coqdocvar{Heq}\ensuremath{|}\coqdocvar{Hneq}].\coqdoceol
+\coqdocindent{2.00em}
++ \coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{subst} \coqdocvar{ps}.\coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{unfold} \coqref{VerifiedJsonRef.Pointer.Pointer.formatPointer}{\coqdocdefinition{formatPointer}} \coqdoctac{in} \coqdocvar{Heq}.\coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{simpl} \coqdoctac{in} \coqdocvar{Heq}.\coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{discriminate}.\coqdoceol
+\coqdocindent{2.00em}
++ \coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{destruct} (\coqref{VerifiedJsonRef.Pointer.Pointer.starts with slash}{\coqdocdefinition{starts\_with\_slash}} \coqdocvar{ps}) \coqdocvar{eqn}:\coqdocvar{Hsw}.\coqdoceol
+\coqdocindent{4.00em}
+\ensuremath{\times} \coqdoceol
+\coqdocindent{4.00em}
+\coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{subst} \coqdocvar{ps}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{4.00em}
+\coqdoctac{rewrite} \coqref{VerifiedJsonRef.PointerLemmas.PointerLemmas.scan segments drop1 formatPointer nonempty}{\coqdoclemma{scan\_segments\_drop1\_formatPointer\_nonempty}}.\coqdoceol
+\coqdocemptyline
+\coqdocindent{4.00em}
+\coqdoctac{exact} (\coqref{VerifiedJsonRef.PointerLemmas.PointerLemmas.mapM unescape escape ok}{\coqdoclemma{mapM\_unescape\_escape\_ok}} (\coqdocvar{t} \coqexternalref{::list scope:x '::' x}{http://rocq-prover.org/doc/V9.0.1/stdlib//Corelib.Init.Datatypes}{\coqdocnotation{::}} \coqdocvar{ts})).\coqdoceol
+\coqdocindent{4.00em}
+\ensuremath{\times} \coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{subst} \coqdocvar{ps}.\coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{unfold} \coqref{VerifiedJsonRef.Pointer.Pointer.starts with slash}{\coqdocdefinition{starts\_with\_slash}} \coqdoctac{in} \coqdocvar{Hsw}.\coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{unfold} \coqref{VerifiedJsonRef.Pointer.Pointer.formatPointer}{\coqdocdefinition{formatPointer}} \coqdoctac{in} \coqdocvar{Hsw}; \coqdoctac{simpl} \coqdoctac{in} \coqdocvar{Hsw}.\coqdoceol
+\coqdocindent{4.00em}
+\coqdoctac{destruct} (\coqdocdefinition{ascii\_dec} "/"\%\coqdocvar{char} "/"\%\coqdocvar{char}); \coqdoctac{try} \coqdoctac{discriminate}.\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{Qed}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{End} \coqref{VerifiedJsonRef.PointerLemmas.PointerLemmas}{\coqdocmodule{PointerLemmas}}.\coqdoceol
+\end{coqdoccode}
+\end{document}
