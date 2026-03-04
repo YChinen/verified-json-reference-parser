@@ -1,4 +1,4 @@
-COQC=coqc
+COQC=rocq c
 COQFLAGS=-q -R . VerifiedJsonRef
 
 # 依存順：Types -> Token -> TokenLemmas -> Pointer ...
