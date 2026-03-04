@@ -16,6 +16,8 @@ import type { Result } from "../public/types.js";
  * because the pointer string itself may be syntactically valid.
  *
  * This function is only meaningful during traversal of an array value.
+ *
+ * @internal
  */
 export function parseArrayIndexToken(token: string): Result<number> {
   if (token.length === 0) return err("TypeMismatch");

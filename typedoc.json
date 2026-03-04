@@ -1,0 +1,17 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "verified-json-reference-parser",
+  "entryPoints": ["src/public/index.ts"],
+  "out": "docs/api",
+  "tsconfig": "tsconfig.json",
+
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+
+  "hideGenerator": true,
+  "cleanOutputDir": true,
+
+  "sort": ["source-order"],
+  "readme": "none"
+}

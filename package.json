@@ -26,6 +26,8 @@
   },
   "sideEffects": false,
   "scripts": {
+    "docs:api": "typedoc",
+    "docs:api:check": "typedoc --validation.invalidLink --validation.notExported",
     "clean": "rm -rf dist",
     "build": "tsc -p tsconfig.json",
     "test": "vitest",

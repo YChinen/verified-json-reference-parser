@@ -7,6 +7,8 @@ import type { Result } from "../public/types.js";
  * This is the inverse of successful unescaping:
  * - "~" => "~0"
  * - "/" => "~1"
+ *
+ * @internal
  */
 export function escapeToken(token: string): string {
   // Order matters: escape "~" first to avoid double-escaping.
@@ -21,6 +23,8 @@ export function escapeToken(token: string): string {
  * Any other "~" sequence is invalid (e.g. "~2", trailing "~").
  *
  * Returns `InvalidPointer` only for token-level escape syntax failures.
+ *
+ * @internal
  */
 export function unescapeToken(token: string): Result<string> {
   // Fast path: no "~" means nothing to unescape and cannot be invalid.
