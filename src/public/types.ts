@@ -7,6 +7,9 @@
  */
 export type JSONPrimitive = null | boolean | number | string;
 
+/**
+ * Recursive JSON value domain used by the semantic core.
+ */
 export type JSONValue =
   | JSONPrimitive
   | JSONValue[]
@@ -26,24 +29,32 @@ export type Result<T> =
   | { ok: true; value: T }
   | { ok: false; kind: ErrorKind };
 
+/**
+ * Closed set of Phase 1 error kinds.
+ */
 export type ErrorKind = "InvalidPointer" | "TypeMismatch" | "NotFound";
 
 /**
- * Helper constructors (optional but convenient).
- * Keep them tiny and allocation-friendly.
+ * Construct a successful semantic result.
  */
 export const ok = <T>(value: T): Result<T> => ({ ok: true, value });
 
+/**
+ * Construct a failed semantic result.
+ */
 export const err = <T = never>(kind: ErrorKind): Result<T> => ({
   ok: false,
   kind,
 });
 
 /**
- * Type guard helpers.
+ * Type guard for successful results.
  */
 export const isOk = <T>(r: Result<T>): r is { ok: true; value: T } => r.ok;
 
+/**
+ * Type guard for failed results.
+ */
 export const isErr = <T>(
   r: Result<T>
 ): r is { ok: false; kind: ErrorKind } => !r.ok;

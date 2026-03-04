@@ -1,3 +1,9 @@
+/**
+ * Public API surface for the Phase 1 semantic core.
+ *
+ * Exposes JSON value types, JSON Pointer operations, and local reference
+ * resolution without exporting internal helper utilities.
+ */
 export type {
   JSONPrimitive,
   JSONValue,

@@ -7,13 +7,14 @@ import { parsePointer, get } from "./pointer.js";
  *
  * Phase 1 supported forms:
  * - "#": whole document
- * - "#/...": JSON Pointer fragment
+ * - "#/...": JSON Pointer fragment evaluated within the same document
  *
  * Unsupported forms (Phase 1):
  * - non-local references (e.g. "other.json#/x")
  * - non-pointer fragments
  *
- * All failures are explicit via Result.
+ * All failures are explicit via Result. Unsupported or malformed reference
+ * forms are classified as `InvalidPointer`.
  */
 export function resolveLocalRef(doc: JSONValue, refString: string): Result<JSONValue> {
   // Whole document reference

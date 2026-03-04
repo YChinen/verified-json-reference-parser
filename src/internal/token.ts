@@ -3,6 +3,8 @@ import type { Result } from "../public/types.js";
 
 /**
  * Escape a JSON Pointer token (RFC 6901).
+ *
+ * This is the inverse of successful unescaping:
  * - "~" => "~0"
  * - "/" => "~1"
  */
@@ -17,6 +19,8 @@ export function escapeToken(token: string): string {
  * - "~0" => "~"
  *
  * Any other "~" sequence is invalid (e.g. "~2", trailing "~").
+ *
+ * Returns `InvalidPointer` only for token-level escape syntax failures.
  */
 export function unescapeToken(token: string): Result<string> {
   // Fast path: no "~" means nothing to unescape and cannot be invalid.

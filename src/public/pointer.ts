@@ -9,6 +9,9 @@ import { parseArrayIndexToken } from "../internal/arrayIndex.js";
  * - "" => []
  * - Otherwise must start with "/"
  * - "/" => [""] (empty token selects empty-key property)
+ *
+ * Returns `InvalidPointer` for malformed pointer syntax or invalid token
+ * escapes. This function does not inspect any JSON document.
  */
 export function parsePointer(pointerString: string): Result<Pointer> {
   if (pointerString === "") return ok([]);
@@ -33,6 +36,8 @@ export function parsePointer(pointerString: string): Result<Pointer> {
  *
  * - [] => ""
  * - Otherwise: "/" + escape(token1) + "/" + escape(token2) + ...
+ *
+ * The operation is total for the internal `Pointer` representation.
  */
 export function formatPointer(pointer: Pointer): string {
   if (pointer.length === 0) return "";
@@ -46,6 +51,10 @@ export function formatPointer(pointer: Pointer): string {
  * - ok(value) on success
  * - NotFound if a property / element does not exist
  * - TypeMismatch if traversal is invalid for the current value shape
+ *
+ * Important Phase 1 distinction:
+ * - Invalid array index token format during array traversal is `TypeMismatch`
+ * - Missing object keys and out-of-bounds array indices are `NotFound`
  */
 export function get(doc: JSONValue, pointer: Pointer): Result<JSONValue> {
   let cur: JSONValue = doc;
