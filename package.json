@@ -1,6 +1,6 @@
 {
   "name": "@ychinen/verified-json-reference-parser",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Verified JSON Pointer / JSON Reference parser",
   "license": "MIT",
   "type": "module",
