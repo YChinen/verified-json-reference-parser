@@ -72,10 +72,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build proofs in container
+      - name: Build proofs in container (copy build)
         run: |
           docker run --rm \
-            --user "$(id -u):$(id -g)" \
-            -v "${{ github.workspace }}:/repo" -w /repo \
+            -v "${{ github.workspace }}:/repo:ro" \
             rocq/rocq-prover:9.0.1 \
-            sh -lc 'make -C proof/rocq'
+            sh -lc '
+              cp -r /repo /tmp/repo &&
+              cd /tmp/repo &&
+              make -C proof/rocq
+            '
