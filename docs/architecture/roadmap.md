@@ -42,6 +42,7 @@ The project prioritizes practical assurance over theoretical completeness.
 
   * Counterexample generation
   * Differential testing against TypeScript implementation
+  * Z3-backed oracle for concrete Phase 1 cases
 
 ### Exit Criteria
 
@@ -51,18 +52,16 @@ The project prioritizes practical assurance over theoretical completeness.
 
 ---
 
-# Phase 2 — Reference Semantics Engine (Limited Scope)
+# Phase 2 — Verification Hardening
 
-**Goal:** Introduce a constrained Z3-backed semantic oracle for local reference resolution.
+**Goal:** Harden and scale the existing Z3-backed verification workflow.
 
 ### Scope
 
-* Z3-based resolution model for:
-
-  * Pointer evaluation
-  * Local `$ref` resolution
+* Performance and robustness improvements for the Z3 oracle
 * Counterexample minimization
 * Automatic regression corpus growth
+* Stronger parity checks between the Python baseline and the Z3 oracle
 
 ### Explicit Non-Goals
 
@@ -72,7 +71,7 @@ The project prioritizes practical assurance over theoretical completeness.
 
 ### Exit Criteria
 
-* Z3 oracle produces consistent results with TS implementation
+* Z3 oracle continues to produce consistent results with TS implementation
 * Counterexamples automatically captured
 * Clear semantic boundary enforced
 
@@ -121,4 +120,3 @@ This project also serves as:
 The semantic core is intended to remain stable once formally fixed.
 
 ---
-

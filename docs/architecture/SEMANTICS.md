@@ -69,12 +69,12 @@ Result<T> :=
   * Pointer or reference string is syntactically invalid.
   * Unsupported reference forms.
   * Invalid escape sequences.
-  * Invalid array index token format.
 
 * **TypeMismatch**
 
   * Attempting to traverse into a primitive value.
   * Attempting to apply a non-numeric token to an array.
+  * Invalid array index token format during array traversal.
 
 * **NotFound**
 
@@ -274,7 +274,7 @@ Non-local references (e.g. `other.json#/x`) are not supported in Phase 1.
 
 # 6. Verified Invariants
 
-The following invariants are intended to be mechanically checked (Rocq) and continuously validated (Z3):
+The following invariants are intended to be mechanically checked where applicable (Rocq) and continuously validated against the implementation (including by the Z3-backed oracle):
 
 1. Escape round-trip:
 
@@ -320,4 +320,3 @@ Once the semantic core is formally fixed:
 * Public semantic guarantees will remain stable.
 
 ---
-

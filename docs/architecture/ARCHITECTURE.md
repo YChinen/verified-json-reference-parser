@@ -54,7 +54,8 @@ This layer is not part of the distributed npm package.
 It includes:
 
 * Formal specifications written in Rocq
-* Differential testing with Z3
+* A Z3-backed oracle for concrete Phase 1 cases
+* Differential testing against the TypeScript implementation
 * Counterexample generation and minimization
 
 This layer acts as a quality assurance mechanism, not a runtime dependency.
@@ -78,12 +79,13 @@ URI handling may be introduced in the future only to the minimal extent required
 
 Z3 is used in a constrained manner for:
 
-* Modeling JSON Pointer evaluation
-* Modeling local reference resolution
+* Evaluating concrete JSON Pointer cases
+* Evaluating concrete local reference resolution cases
 * Detecting semantic divergence from the TypeScript implementation
 
-Z3 does not serve as a complete execution engine.
-It functions as a limited semantic oracle.
+The verification layer also keeps a pure Python reference model as a baseline.
+Z3 does not serve as a general execution engine for arbitrary symbolic JSON programs.
+It functions as a limited semantic oracle for Phase 1 behavior.
 
 ---
 
@@ -129,17 +131,18 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-  A["Specification Model / Constraints (Z3)"] --> B[Counterexample Generation]
-  B --> C[Minimization]
-  C --> D[Regression Corpus Update]
-  D --> E[CI Execution]
+  A["Python Reference Model"] --> E[CI Execution]
+  B["Z3 Oracle"] --> E
+  C["Counterexample Search"] --> D[Regression Corpus Update]
+  D --> E
 
   E --> F[TypeScript Implementation]
-  E --> G[Z3 Oracle]
-  F --> H{Results Match?}
-  G --> H
-  H -- No --> I[Report Semantic Divergence]
-  H -- Yes --> J[OK]
+  E --> G{Results Match?}
+  A --> G
+  B --> G
+  F --> G
+  G -- No --> H[Report Semantic Divergence]
+  G -- Yes --> I[OK]
 ```
 
 ---

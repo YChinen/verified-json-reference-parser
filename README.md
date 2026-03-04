@@ -50,9 +50,10 @@ Instead, “verified” means:
 
 * Core semantics are formally specified.
 * Critical invariants are mechanically checked.
-* TypeScript implementation is continuously validated against the formal model.
-* SMT-backed counterexample generation is used for differential testing.
-* Discovered counterexamples are minimized and added to regression tests.
+* TypeScript implementation is continuously validated against a verification oracle and reference model.
+* A Z3-backed oracle is used for differential testing of concrete Phase 1 cases.
+* SMT-backed counterexample generation is used to search for semantic mismatches.
+* Discovered counterexamples can be promoted into the regression corpus.
 
 The focus is on practical, enforceable guarantees.
 
@@ -105,11 +106,13 @@ The formal layer defines and stabilizes the semantic core.
 
 Used for:
 
+* Full-result oracle evaluation for concrete `get` / `resolveLocalRef` cases
 * Counterexample generation
 * Differential testing against the TypeScript implementation
 * Regression corpus growth
 
-Z3 is used as a semantic stress-testing engine rather than a full proof system.
+The verification tooling keeps a pure Python reference model alongside the Z3-backed oracle.
+Z3 is used as a semantic oracle and stress-testing engine rather than a full proof system.
 
 ---
 
